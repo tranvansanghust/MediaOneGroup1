@@ -8,13 +8,13 @@ import nhom1.Khai.db.DBConnector;
 public class Store {
 	private String storeName;
 	private double totalMoney;
-	private List<Cost> costList;
+	private List<Fee> costList;
 	private DBConnector dbconnector;
 	
 	public Store(String storeName, double totalMoney, DBConnector dbconnector) {
 		this.storeName = storeName;
 		this.totalMoney = totalMoney;
-		this.costList = new LinkedList<Cost>();
+		this.costList = new LinkedList<Fee>();
 		this.dbconnector = new DBConnector();
 	}
 	/**
@@ -22,7 +22,7 @@ public class Store {
 	 * @param cost
 	 * @return true if success else false
 	 */
-	public boolean addCost(Cost cost) {
+	public boolean addCost(Fee cost) {
 		if(cost!=null) {
 			costList.add(cost);
 			return true;
@@ -34,7 +34,7 @@ public class Store {
 	 * @param cost
 	 * @return true true if success else false 
 	 */
-	public boolean removeCost(Cost cost) {
+	public boolean removeCost(Fee cost) {
 		return this.costList.remove(cost);
 	}
 	/**
@@ -58,10 +58,10 @@ public class Store {
 	public void setTotalMoney(double totalMoney) {
 		this.totalMoney = totalMoney;
 	}
-	public List<Cost> getCostList() {
+	public List<Fee> getCostList() {
 		return costList;
 	}
-	public void setCostList(List<Cost> costList) {
+	public void setCostList(List<Fee> costList) {
 		this.costList = costList;
 	}
 	public DBConnector getDbconnector() {

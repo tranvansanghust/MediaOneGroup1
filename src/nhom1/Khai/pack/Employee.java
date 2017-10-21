@@ -4,7 +4,7 @@ public class Employee extends Human {
 	private String position;
 	private double salary;
 	private String password;
-
+	public static int idNumber;
 	public Employee() {
 		super();
 	}

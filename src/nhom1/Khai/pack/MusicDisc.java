@@ -3,12 +3,13 @@ package nhom1.Khai.pack;
 public class MusicDisc extends Product{
 	private String authorName;
 	private String singerName;
-	private int dicsType;
+	private String dicsType;
+	public static int idNumber;
 	public MusicDisc() {
 		super();
 	}
 	
-	public MusicDisc(String authorName, String singerName, int dicsType) {
+	public MusicDisc(String authorName, String singerName, String dicsType) {
 		super();
 		this.authorName = authorName;
 		this.singerName = singerName;
@@ -27,10 +28,10 @@ public class MusicDisc extends Product{
 	public void setSingerName(String singerName) {
 		this.singerName = singerName;
 	}
-	public int getDicsType() {
+	public String getDicsType() {
 		return dicsType;
 	}
-	public void setDicsType(int dicsType) {
+	public void setDicsType(String dicsType) {
 		this.dicsType = dicsType;
 	}
 	

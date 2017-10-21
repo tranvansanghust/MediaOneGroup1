@@ -2,7 +2,7 @@ package nhom1.Khai.pack;
 
 public class Customer extends Human {
 	private double point;
-
+	public static int idNumber;
 	public Customer() {
 		super();
 	}

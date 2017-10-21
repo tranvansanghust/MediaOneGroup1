@@ -4,7 +4,6 @@ public class Human {
 	private String ID;
 	private String fullName;
 	private String telephoneNumber;
-
 	public Human() {
 
 	}

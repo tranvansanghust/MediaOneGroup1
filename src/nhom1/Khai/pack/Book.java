@@ -3,11 +3,12 @@ package nhom1.Khai.pack;
 public class Book extends Product{
 	private String publishingCompany;
 	private String authorName;
-	private int bookType;
+	private String bookType;
+	public static int idNumber;
 	public Book() {
 		super();
 	}
-	public Book(String publishingCompany, String authorName, int bookType) {
+	public Book(String publishingCompany, String authorName, String bookType) {
 		super();
 		this.publishingCompany = publishingCompany;
 		this.authorName = authorName;
@@ -19,7 +20,7 @@ public class Book extends Product{
 	public String getAuthorName() {
 		return authorName;
 	}
-	public int getBookType() {
+	public String getBookType() {
 		return bookType;
 	}
 	public void setPublishingCompany(String publishingCompany) {
@@ -28,7 +29,7 @@ public class Book extends Product{
 	public void setAuthorName(String authorName) {
 		this.authorName = authorName;
 	}
-	public void setBookType(int bookType) {
+	public void setBookType(String bookType) {
 		this.bookType = bookType;
 	}
 	

@@ -3,13 +3,13 @@ package nhom1.Khai.pack;
 public class MovieDisc extends Product {
 	private String directorName;
 	private String actorName;
-	private int dicsType;
-
+	private String dicsType;
+	public static int idNumber;
 	public MovieDisc() {
 		super();
 	}
 
-	public MovieDisc(String directorName, String actorName, int dicsType) {
+	public MovieDisc(String directorName, String actorName, String dicsType) {
 		super();
 		this.directorName = directorName;
 		this.actorName = actorName;
@@ -32,11 +32,11 @@ public class MovieDisc extends Product {
 		this.actorName = actorName;
 	}
 
-	public int getDicsType() {
+	public String getDicsType() {
 		return dicsType;
 	}
 
-	public void setDicsType(int dicsType) {
+	public void setDicsType(String dicsType) {
 		this.dicsType = dicsType;
 	}
 
