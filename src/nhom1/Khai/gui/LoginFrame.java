@@ -27,12 +27,13 @@ public class LoginFrame extends JFrame {
 
 	public LoginFrame(DBConnector dbConnector) {
 		super("Login");
-		this.dbConnector = dbConnector;
+		this.setDbConnector(dbConnector);
 		initUI();
 	}
 
 	public void initUI() {
 		this.setSize(300, 130);
+		this.setLocation(300, 250);
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		centerPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
@@ -57,6 +58,20 @@ public class LoginFrame extends JFrame {
 
 	public JPanel getCenterPanel() {
 		return centerPanel;
+	}
+
+	/**
+	 * @return the dbConnector
+	 */
+	public DBConnector getDbConnector() {
+		return dbConnector;
+	}
+
+	/**
+	 * @param dbConnector the dbConnector to set
+	 */
+	public void setDbConnector(DBConnector dbConnector) {
+		this.dbConnector = dbConnector;
 	}
 
 	public void setCenterPanel(JPanel centerPanel) {
@@ -97,5 +112,6 @@ public class LoginFrame extends JFrame {
 
 	public static void main(String[] args) {
 		LoginFrame a = new LoginFrame(new DBConnector());
+		a.setVisible(true);;
 	}
 }
