@@ -1,5 +1,7 @@
 package group1.khai.models;
 
+import java.sql.Timestamp;
+
 public class MusicDisc extends Product{
 	private String authorName;
 	private String singerName;
@@ -9,8 +11,9 @@ public class MusicDisc extends Product{
 		super();
 	}
 	
-	public MusicDisc(String authorName, String singerName, String dicsType) {
-		super();
+	public MusicDisc(String iD, String productName, int productType, long productQuota, double buyPrice, double sellPrice,
+			Timestamp buyTimestamp, Timestamp sellTimestamp,String authorName, String singerName, String dicsType) {
+		super(iD,productName,productType,productQuota,buyPrice,sellPrice,buyTimestamp,sellTimestamp);
 		this.authorName = authorName;
 		this.singerName = singerName;
 		this.dicsType = dicsType;

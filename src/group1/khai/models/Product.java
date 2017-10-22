@@ -7,7 +7,7 @@ public class Product {
 	private String ID;
 	private String productName;
 	private int productType;
-	private int productQuota;
+	private long productQuota;
 	private double buyPrice;
 	private double sellPrice;
 	private Timestamp buyTimestamp;
@@ -15,7 +15,7 @@ public class Product {
 	public Product() {
 		
 	}
-	public Product(String iD, String productName, int productType, int productQuota, double buyPrice, double sellPrice,
+	public Product(String iD, String productName, int productType, long productQuota, double buyPrice, double sellPrice,
 			Timestamp buyTimestamp, Timestamp sellTimestamp) {
 		super();
 		setID(iD);
@@ -87,7 +87,7 @@ public class Product {
 	 * 
 	 * @param productQuota
 	 */
-	public void setProductQuota(int productQuota) {
+	public void setProductQuota(long productQuota) {
 		if (productQuota > 0)
 			this.productQuota = productQuota;
 	}

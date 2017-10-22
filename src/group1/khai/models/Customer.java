@@ -7,8 +7,8 @@ public class Customer extends Human {
 		super();
 	}
 
-	public Customer(double point) {
-		super();
+	public Customer(String iD, String fullName, String telephoneNumber,double point) {
+		super(iD,fullName,telephoneNumber);
 		setPoint(point);
 	}
 

@@ -2,6 +2,7 @@ package group1.khai.book.view;
 
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -28,7 +29,7 @@ public class FuncBookPanel extends JPanel implements ActionListener{
 	
 	public FuncBookPanel() {
 	
-		setLayout(new BorderLayout(10,10));
+		setLayout(new BorderLayout(10,4));
 		setBorder(BorderFactory.createTitledBorder("Chức năng"));
 		add(createSearchPanel(),BorderLayout.NORTH);
 		add(createActionPanel(),BorderLayout.CENTER);
@@ -59,7 +60,6 @@ public class FuncBookPanel extends JPanel implements ActionListener{
 	
 	private JPanel createActionPanel() {
 		JPanel panel = new JPanel();
-
 		panel.setLayout(new GridLayout(1, 4, 10, 10));
 		
 		btnXemTatCa = createButtons("XEM TẤT CẢ");

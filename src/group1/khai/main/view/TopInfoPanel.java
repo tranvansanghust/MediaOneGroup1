@@ -12,7 +12,6 @@ import group1.khai.db.DBConnector;
 @SuppressWarnings("serial")
 public class TopInfoPanel extends JPanel{
 	private JLabel lbUser,lbTableName;
-	
 	public TopInfoPanel(String fullName,DBConnector db) {
 		setLayout(new BorderLayout(10,10));
 		setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED));

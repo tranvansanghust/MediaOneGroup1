@@ -11,7 +11,6 @@ import javax.swing.border.EtchedBorder;
 
 @SuppressWarnings("serial")
 public class ChoicePanel extends JPanel implements ActionListener{
-	private JButton btnNhanVien;
 	private JButton btnKhachHang;
 	private JButton btnSanPham;
 	private JButton btnThongKe;
@@ -23,7 +22,6 @@ public class ChoicePanel extends JPanel implements ActionListener{
 		setLayout(new GridLayout(8, 1, 10, 10));
 		setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED));
 		setBorder(BorderFactory.createTitledBorder("Danh mục"));
-		btnNhanVien  =  createButtons("NHÂN VIÊN");
 		btnKhachHang =  createButtons("KHÁCH HÀNG");
 		btnSanPham   =  createButtons("SẢN PHẨM");
 		btnThongKe   =  createButtons("THỐNG KÊ");
@@ -31,7 +29,6 @@ public class ChoicePanel extends JPanel implements ActionListener{
 		btnDoiMatKhau = createButtons("ĐỔI MẬT KHẨU");
 		btnThongTin = createButtons("THÔNG TIN TK");
 		
-		add(btnNhanVien);
 		add(btnKhachHang);
 		add(btnSanPham);
 		add(btnThongKe);
@@ -44,14 +41,6 @@ public class ChoicePanel extends JPanel implements ActionListener{
 		JButton button = new JButton(name);
 		button.addActionListener(this);
 		return button;
-	}
-
-	public JButton getBtnNhanVien() {
-		return btnNhanVien;
-	}
-
-	public void setBtnNhanVien(JButton btnNhanVien) {
-		this.btnNhanVien = btnNhanVien;
 	}
 
 	public JButton getBtnKhachHang() {

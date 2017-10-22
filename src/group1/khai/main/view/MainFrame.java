@@ -5,15 +5,18 @@ import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import group1.khai.book.controllers.AddBookController;
 import group1.khai.book.view.FuncBookPanel;
 import group1.khai.customer.view.FuncCusPanel;
 import group1.khai.customer.view.TableCusPanel;
 import group1.khai.db.DBConnector;
 import group1.khai.employee.view.FuncEmployeePanel;
 import group1.khai.employee.view.TableEmployeePanel;
+import group1.khai.main.controllers.ChangeTableController;
 import group1.khai.models.Employee;
 import group1.khai.moviedisc.view.FuncMoviesPanel;
 import group1.khai.musicdisc.view.FuncMusicPanel;
+
 
 
 @SuppressWarnings("serial")
@@ -21,12 +24,10 @@ public class MainFrame extends JFrame{
 	private TopInfoPanel topInfoPanel;
 	private ChoicePanel  choicePanel;
 	
-	private TableEmployeePanel   tableStaffPanel;
 	private TableCusPanel tableCusPanel;
 	
 	
 	private FuncCusPanel funcCusPanel;
-	private FuncEmployeePanel    funcStaffPanel;
 	private FuncBookPanel funcBookPanel;
 	private FuncMoviesPanel funcMoviesPanel;
 	private FuncMusicPanel funcMusicPanel;
@@ -42,7 +43,8 @@ public class MainFrame extends JFrame{
 		this.db=db;
 		this.setOnlineEmp(emp);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(1000,600);
+		setSize(1200,600);
+		setResizable(false);
 		setLayout(new BorderLayout());
 		setLocationRelativeTo(null);
 		
@@ -52,9 +54,7 @@ public class MainFrame extends JFrame{
 		/*			WEST MAINFRAME			*/
 		choicePanel  = new ChoicePanel();
 		
-		/*			PANELS OF STAFFS			*/
-		tableStaffPanel   = new TableEmployeePanel();
-		funcStaffPanel    = new FuncEmployeePanel();
+		
 		
 		/*			PANELS OF CUSTOMERS		*/
 		tableCusPanel	= new TableCusPanel();
@@ -78,8 +78,6 @@ public class MainFrame extends JFrame{
 		funcMusicPanel 		= new FuncMusicPanel();
 		
 		
-		
-		
 		add(topInfoPanel,BorderLayout.NORTH);
 		add(choicePanel,BorderLayout.WEST);
 		add(createMainPanel(),BorderLayout.CENTER);
@@ -96,11 +94,11 @@ public class MainFrame extends JFrame{
 		
 		tablePanel = new JPanel();
 		tablePanel.setLayout(new BorderLayout());
-		tablePanel.add(tableStaffPanel, BorderLayout.CENTER);
+		tablePanel.add(tableCusPanel, BorderLayout.CENTER);
 		
 		funcPanel = new JPanel();
 		funcPanel.setLayout(new BorderLayout());
-		funcPanel.add(funcStaffPanel, BorderLayout.CENTER);
+		funcPanel.add(funcCusPanel, BorderLayout.CENTER);
 		
 		mainPanel.add(tablePanel,BorderLayout.SOUTH);
 		mainPanel.add(funcPanel,BorderLayout.CENTER);
@@ -186,24 +184,6 @@ public class MainFrame extends JFrame{
 	}
 
 
-	public FuncEmployeePanel getFuncStaffPanel() {
-		return funcStaffPanel;
-	}
-
-
-	public void setFuncStaffPanel(FuncEmployeePanel funcStaffPanel) {
-		this.funcStaffPanel = funcStaffPanel;
-	}
-
-
-	public TableEmployeePanel getTableStaffPanel() {
-		return tableStaffPanel;
-	}
-
-
-	public void setTableStaffPanel(TableEmployeePanel tableStaffPanel) {
-		this.tableStaffPanel = tableStaffPanel;
-	}
 
 
 
@@ -246,8 +226,12 @@ public class MainFrame extends JFrame{
 	}
 
 	public static void main(String[] args) {
+		DBConnector db = new DBConnector();
 		MainFrame a = new MainFrame(new Employee("20151998","Nguyễn Bá Khải","01699417566",1000,"khailinh1997")
-				, new DBConnector());
+				, db);
+		 /*			CHANGE MAINPANEL     		*/
+		ChangeTableController changCon= new ChangeTableController(a,db);
+		AddBookController addBookCon = new AddBookController(a, db);
 	}
 
 }
