@@ -1,4 +1,4 @@
-package nhom1.Khai.View;
+package nhom1.khai.view;
 
 import java.awt.BorderLayout;
 
@@ -7,7 +7,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 
-import nhom1.Khai.db.DBConnector;
+import nhom1.khai.db.DBConnector;
 
 @SuppressWarnings("serial")
 public class TopInfoPanel extends JPanel{

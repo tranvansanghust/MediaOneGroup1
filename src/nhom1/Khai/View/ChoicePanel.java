@@ -1,4 +1,4 @@
-package nhom1.Khai.View;
+package nhom1.khai.view;
 
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;

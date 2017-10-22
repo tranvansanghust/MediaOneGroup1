@@ -1,4 +1,4 @@
-package nhom1.Khai.db;
+package nhom1.khai.db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import nhom1.Khai.model.Employee;
+import nhom1.khai.models.Employee;
 
 
 

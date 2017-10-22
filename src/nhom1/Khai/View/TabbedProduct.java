@@ -1,10 +1,10 @@
-package nhom1.Khai.View;
+package nhom1.khai.view;
 
 import javax.swing.JTabbedPane;
 
-import nhom1.Khai.View.Book.TableBookPanel;
-import nhom1.Khai.View.MovieDisc.TableMoviesPanel;
-import nhom1.Khai.View.MusicDisc.TableMusicPanel;
+import nhom1.khai.view.book.TableBookPanel;
+import nhom1.khai.view.moviedisc.TableMoviesPanel;
+import nhom1.khai.view.musicdisc.TableMusicPanel;
 
 @SuppressWarnings("serial")
 public class TabbedProduct extends JTabbedPane {

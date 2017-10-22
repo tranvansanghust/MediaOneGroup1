@@ -1,7 +1,7 @@
 package app;
 
-import nhom1.Khai.db.DBConnector;
-import nhom1.Khai.model.Store;
+import nhom1.khai.db.DBConnector;
+import nhom1.khai.models.Store;
 
 public class App {
 	public static void main(String[] args) {

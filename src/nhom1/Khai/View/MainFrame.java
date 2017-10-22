@@ -1,19 +1,19 @@
-package nhom1.Khai.View;
+package nhom1.khai.view;
 
 import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import nhom1.Khai.View.Book.FuncBookPanel;
-import nhom1.Khai.View.Customer.FuncCusPanel;
-import nhom1.Khai.View.Customer.TableCusPanel;
-import nhom1.Khai.View.Employee.FuncEmployeePanel;
-import nhom1.Khai.View.Employee.TableEmployeePanel;
-import nhom1.Khai.View.MovieDisc.FuncMoviesPanel;
-import nhom1.Khai.View.MusicDisc.FuncMusicPanel;
-import nhom1.Khai.db.DBConnector;
-import nhom1.Khai.model.Employee;
+import nhom1.khai.db.DBConnector;
+import nhom1.khai.models.Employee;
+import nhom1.khai.view.book.FuncBookPanel;
+import nhom1.khai.view.customer.FuncCusPanel;
+import nhom1.khai.view.customer.TableCusPanel;
+import nhom1.khai.view.employee.FuncEmployeePanel;
+import nhom1.khai.view.employee.TableEmployeePanel;
+import nhom1.khai.view.moviedisc.FuncMoviesPanel;
+import nhom1.khai.view.musicdisc.FuncMusicPanel;
 
 
 @SuppressWarnings("serial")
