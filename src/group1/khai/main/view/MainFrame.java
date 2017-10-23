@@ -1,26 +1,27 @@
 package group1.khai.main.view;
 
 import java.awt.BorderLayout;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.DataOutputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import group1.khai.book.controllers.AddBookController;
-import group1.khai.book.controllers.DeleteBookController;
-import group1.khai.book.controllers.EditBookController;
 import group1.khai.book.view.FuncBookPanel;
 import group1.khai.customer.view.FuncCusPanel;
 import group1.khai.customer.view.TableCusPanel;
 import group1.khai.db.DBConnector;
-import group1.khai.employee.view.FuncEmployeePanel;
-import group1.khai.employee.view.TableEmployeePanel;
-import group1.khai.main.controllers.ChangeTableController;
+import group1.khai.models.Bill;
+import group1.khai.models.Book;
+import group1.khai.models.Customer;
 import group1.khai.models.Employee;
-import group1.khai.moviedisc.controllers.AddMoviesController;
-import group1.khai.moviedisc.controllers.EditMoviesController;
+import group1.khai.models.MovieDisc;
+import group1.khai.models.MusicDisc;
 import group1.khai.moviedisc.view.FuncMoviesPanel;
-import group1.khai.musicdisc.controllers.AddMusicController;
-import group1.khai.musicdisc.controllers.EditMusicController;
 import group1.khai.musicdisc.view.FuncMusicPanel;
 
 
@@ -92,6 +93,34 @@ public class MainFrame extends JFrame{
 		
 		
 		setVisible(true);
+		
+		
+		
+		/*	WindowListener*/
+		this.addWindowListener(new WindowAdapter() {
+
+			@Override
+			public void windowClosing(WindowEvent e) {
+				try {
+					DataOutputStream out = new DataOutputStream(new FileOutputStream("data.dat"));
+					out.writeInt(Book.idNumber);
+					out.writeInt(MusicDisc.idNumber);
+					out.writeInt(MovieDisc.idNumber);
+					out.writeInt(Employee.idNumber);
+					out.writeInt(Customer.idNumber);
+					out.writeInt(Bill.idNumber);
+					out.flush();
+					out.close();
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+			
+		});
 	}
 	
 	private JPanel createMainPanel() {

@@ -79,5 +79,15 @@ public class Bill {
 	public void setSellTimestamp(Timestamp sellTimestamp) {
 		this.sellTimestamp = sellTimestamp;
 	}
+	public static String genID() {
+		String a = Integer.toString(++idNumber);
+		StringBuilder build = new StringBuilder();
+		build.append("BL");
+		for(int i=0;i<8-a.length()-2;i++) {
+			build.append("0");
+		}
+		build.append(a);
+		return build.toString();
+	}
 
 }

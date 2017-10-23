@@ -35,5 +35,15 @@ public class Book extends Product{
 	public void setBookType(String bookType) {
 		this.bookType = bookType;
 	}
+	public static String genID() {
+		String a = Integer.toString(++idNumber);
+		StringBuilder build = new StringBuilder();
+		build.append("BK");
+		for(int i=0;i<8-a.length()-2;i++) {
+			build.append("0");
+		}
+		build.append(a);
+		return build.toString();
+	}
 	
 }

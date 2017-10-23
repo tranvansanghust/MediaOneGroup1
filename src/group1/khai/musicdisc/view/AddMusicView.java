@@ -18,7 +18,6 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import group1.khai.db.DBConnector;
-import group1.khai.models.Book;
 import group1.khai.models.MusicDisc;
 import group1.khai.models.Product;
 
@@ -26,8 +25,8 @@ import group1.khai.models.Product;
 public class AddMusicView extends JDialog  implements ActionListener{
 
 	
-	private JLabel 		lbID, lbTenSP, lbSoLuong, lbGiaMua, lbGiaBan, lbtacgia, lbCaSi;
-	private JTextField 	tfID, tfTenSP, tfSoLuong, tfGiaMua, tfGiaBan, tftacgia, tfCaSi;
+	private JLabel 	 lbTenSP, lbSoLuong, lbGiaMua, lbGiaBan, lbtacgia, lbCaSi;
+	private JTextField 	tfTenSP, tfSoLuong, tfGiaMua, tfGiaBan, tftacgia, tfCaSi;
 	private JPanel p1, p2,p3;
 	private JButton btnThem, btnHuy;
 	private DBConnector db;
@@ -43,7 +42,6 @@ public class AddMusicView extends JDialog  implements ActionListener{
 		setLayout(new BorderLayout(10, 10));
 		setTitle("Thêm Đĩa Nhạc");
 
-		lbID       	= new JLabel("ID");
 		lbTenSP    	= new JLabel("Tên đĩa nhạc");
 		lbSoLuong 	= new JLabel("Số lượng");
 		lbGiaMua 	= new JLabel("Giá mua");
@@ -52,7 +50,6 @@ public class AddMusicView extends JDialog  implements ActionListener{
 		lbCaSi    = new JLabel("Ca sĩ");
 		
 		
-		tfID       	= new JTextField(20);
 		tfTenSP    	= new JTextField(20);
 		tfSoLuong 	= new JTextField(20);
 		tfGiaMua   	= new JTextField(20);
@@ -75,7 +72,6 @@ public class AddMusicView extends JDialog  implements ActionListener{
 		p2.setLayout(new GridLayout(8, 1, 10, 10));		p2.setBorder(new EmptyBorder(10,10,10,10));
 		p3.setLayout(new GridLayout(1, 2, 10, 10));		p3.setBorder(new EmptyBorder(10,10,10,10));
 		
-		p1.add(lbID);           p2.add(tfID);
 		p1.add(lbTenSP);		p2.add(tfTenSP);
 		p1.add(lbtacgia);			p2.add(tftacgia);
 		p1.add(lbCaSi);		p2.add(tfCaSi);
@@ -106,7 +102,6 @@ public class AddMusicView extends JDialog  implements ActionListener{
 			
 				
 				try {
-					String id 		= tfID.getText();
 					String tensp 	= tfTenSP.getText();
 					int soluong 	= Integer.parseInt(tfSoLuong.getText());
 					double giamua 	= Double.parseDouble(tfGiaMua.getText());
@@ -117,7 +112,7 @@ public class AddMusicView extends JDialog  implements ActionListener{
 					String casi = tfCaSi.getText();
 					
 					
-					MusicDisc sach = new MusicDisc(id,tensp,Product.BOOK,soluong,giamua,giaban,buytime,tacgia,casi,"");
+					MusicDisc sach = new MusicDisc(MusicDisc.genID(),tensp,Product.BOOK,soluong,giamua,giaban,buytime,tacgia,casi,"");
 					
 					db.saveMusicDisc(sach);
 					
@@ -142,22 +137,10 @@ public class AddMusicView extends JDialog  implements ActionListener{
 
 	
 	private boolean checkFormat(){
-		if(tfID.getText().length()!=8||tfID.getText().charAt(0)!='M'||tfID.getText().charAt(1)!='S') {
-			JOptionPane.showMessageDialog(null, "ID phải có 8 kí tự bắt đầu bởi 'MS'", "Warning",
-					JOptionPane.WARNING_MESSAGE);
-			return false;
-		}
-		else if (db.findMusicDisc(tfID.getText())!=null) {
-			JOptionPane.showMessageDialog(null, "ID đĩa nhạc '" + tfID.getText() + "' đã tồn tại!", "Warning",
-					JOptionPane.WARNING_MESSAGE);
-			return false;
-		}
-	
-		else if(tfTenSP.getText().equals(null) || tfTenSP.getText().equals("") ||
+		if(tfTenSP.getText().equals(null) || tfTenSP.getText().equals("") ||
 				tfSoLuong.getText().equals(null) || tfSoLuong.getText().equals("") ||
 				tfCaSi.getText().equals(null) || tfCaSi.getText().equals("") ||
 				tftacgia.getText().equals(null) || tftacgia.getText().equals("") ||
-				tfID.getText().equals(null) || tfID.getText().equals("") ||
 				tfGiaMua.getText().equals(null) || tfGiaMua.getText().equals("") ||
 				tfGiaBan.getText().equals(null) || tfGiaBan.getText().equals("") )
 		{

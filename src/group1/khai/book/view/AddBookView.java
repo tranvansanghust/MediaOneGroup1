@@ -27,8 +27,8 @@ import group1.khai.models.Product;
 public class AddBookView extends JDialog  implements ActionListener {
 
 	
-	private JLabel 		lbID, lbTenSP, lbSoLuong, lbGiaMua, lbGiaBan, lbNXB, lbTacGia;
-	private JTextField 	tfID, tfTenSP, tfSoLuong, tfGiaMua, tfGiaBan, tfNXB, tfTacGia;
+	private JLabel 	 lbTenSP, lbSoLuong, lbGiaMua, lbGiaBan, lbNXB, lbTacGia;
+	private JTextField 	 tfTenSP, tfSoLuong, tfGiaMua, tfGiaBan, tfNXB, tfTacGia;
 	private JPanel p1, p2,p3;
 	private JButton btnThem, btnHuy;
 	private DBConnector db;
@@ -44,7 +44,6 @@ public class AddBookView extends JDialog  implements ActionListener {
 		setLayout(new BorderLayout(10, 10));
 		setTitle("Thêm Sách");
 
-		lbID       	= new JLabel("ID");
 		lbTenSP    	= new JLabel("Tên sách");
 		lbSoLuong 	= new JLabel("Số lượng");
 		lbGiaMua 	= new JLabel("Giá mua");
@@ -53,7 +52,6 @@ public class AddBookView extends JDialog  implements ActionListener {
 		lbTacGia    = new JLabel("Tác giả");
 		
 		
-		tfID       	= new JTextField(20);
 		tfTenSP    	= new JTextField(20);
 		tfSoLuong 	= new JTextField(20);
 		tfGiaMua   	= new JTextField(20);
@@ -72,7 +70,6 @@ public class AddBookView extends JDialog  implements ActionListener {
 		p2.setLayout(new GridLayout(8, 1, 10, 10));		p2.setBorder(new EmptyBorder(10,10,10,10));
 		p3.setLayout(new GridLayout(1, 2, 10, 10));		p3.setBorder(new EmptyBorder(10,10,10,10));
 		
-		p1.add(lbID);           p2.add(tfID);
 		p1.add(lbTenSP);		p2.add(tfTenSP);
 		p1.add(lbNXB);			p2.add(tfNXB);
 		p1.add(lbTacGia);		p2.add(tfTacGia);
@@ -103,7 +100,6 @@ public class AddBookView extends JDialog  implements ActionListener {
 			
 				
 				try {
-					String id 		= tfID.getText();
 					String tensp 	= tfTenSP.getText();
 					int soluong 	= Integer.parseInt(tfSoLuong.getText());
 					double giamua 	= Double.parseDouble(tfGiaMua.getText());
@@ -114,7 +110,7 @@ public class AddBookView extends JDialog  implements ActionListener {
 					String tacgia = tfTacGia.getText();
 					
 					
-					Book sach = new Book(id,tensp,Product.BOOK,soluong,giamua,giaban,buytime,nxb,tacgia,"");
+					Book sach = new Book(Book.genID(),tensp,Product.BOOK,soluong,giamua,giaban,buytime,nxb,tacgia,"");
 					
 					db.saveBook(sach);
 					
@@ -139,22 +135,10 @@ public class AddBookView extends JDialog  implements ActionListener {
 
 	
 	private boolean checkFormat(){
-		if(tfID.getText().length()!=8||tfID.getText().charAt(0)!='B'||tfID.getText().charAt(1)!='K') {
-			JOptionPane.showMessageDialog(null, "ID phải có 8 kí tự bắt đầu bởi 'BK'", "Warning",
-					JOptionPane.WARNING_MESSAGE);
-			return false;
-		}
-		else if (db.findBook(tfID.getText())!=null) {
-			JOptionPane.showMessageDialog(null, "ID sách '" + tfID.getText() + "' đã tồn tại!", "Warning",
-					JOptionPane.WARNING_MESSAGE);
-			return false;
-		} 
-	
-		else if(tfTenSP.getText().equals(null) || tfTenSP.getText().equals("") ||
+		if(tfTenSP.getText().equals(null) || tfTenSP.getText().equals("") ||
 				tfSoLuong.getText().equals(null) || tfSoLuong.getText().equals("") ||
 				tfNXB.getText().equals(null) || tfNXB.getText().equals("") ||
 				tfTacGia.getText().equals(null) || tfTacGia.getText().equals("") ||
-				tfID.getText().equals(null) || tfID.getText().equals("") ||
 				tfGiaMua.getText().equals(null) || tfGiaMua.getText().equals("") ||
 				tfGiaBan.getText().equals(null) || tfGiaBan.getText().equals("") )
 		{

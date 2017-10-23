@@ -27,8 +27,8 @@ import group1.khai.models.Product;
 @SuppressWarnings("serial")
 public class AddMoviesView extends JDialog  implements ActionListener{
 	
-	private JLabel 		lbID, lbTenSP, lbSoLuong, lbGiaMua, lbGiaBan, lbDaoDien, lbDienVien;
-	private JTextField 	tfID, tfTenSP, tfSoLuong, tfGiaMua, tfGiaBan , tfDaoDien, tfDienVien;
+	private JLabel 	 lbTenSP, lbSoLuong, lbGiaMua, lbGiaBan, lbDaoDien, lbDienVien;
+	private JTextField 	 tfTenSP, tfSoLuong, tfGiaMua, tfGiaBan , tfDaoDien, tfDienVien;
 	private JPanel p1, p2,p3;
 	private JButton btnThem, btnHuy;
 	private DBConnector db;
@@ -43,8 +43,6 @@ public class AddMoviesView extends JDialog  implements ActionListener{
 		setLocationRelativeTo(null);
 		setLayout(new BorderLayout(10, 10));
 		setTitle("Thêm Đĩa Phim");
-
-		lbID       	= new JLabel("ID");
 		lbTenSP    	= new JLabel("Tên đĩa phim");
 		lbSoLuong 	= new JLabel("Số lượng");
 		lbGiaMua 	= new JLabel("Giá mua");
@@ -53,7 +51,6 @@ public class AddMoviesView extends JDialog  implements ActionListener{
 		lbDienVien    = new JLabel("Diễn viên");
 		
 		
-		tfID       	= new JTextField(20);
 		tfTenSP    	= new JTextField(20);
 		tfSoLuong 	= new JTextField(20);
 		tfGiaMua   	= new JTextField(20);
@@ -75,8 +72,7 @@ public class AddMoviesView extends JDialog  implements ActionListener{
 		p1.setLayout(new GridLayout(8, 1, 10, 10));		p1.setBorder(new EmptyBorder(10,10,10,10));
 		p2.setLayout(new GridLayout(8, 1, 10, 10));		p2.setBorder(new EmptyBorder(10,10,10,10));
 		p3.setLayout(new GridLayout(1, 2, 10, 10));		p3.setBorder(new EmptyBorder(10,10,10,10));
-		
-		p1.add(lbID);           p2.add(tfID);
+		 
 		p1.add(lbTenSP);		p2.add(tfTenSP);
 		p1.add(lbDaoDien);			p2.add(tfDaoDien);
 		p1.add(lbDienVien);		p2.add(tfDienVien);
@@ -107,7 +103,6 @@ public class AddMoviesView extends JDialog  implements ActionListener{
 			
 				
 				try {
-					String id 		= tfID.getText();
 					String tensp 	= tfTenSP.getText();
 					int soluong 	= Integer.parseInt(tfSoLuong.getText());
 					double giamua 	= Double.parseDouble(tfGiaMua.getText());
@@ -118,7 +113,7 @@ public class AddMoviesView extends JDialog  implements ActionListener{
 					String dienvien = tfDienVien.getText();
 					
 					
-					MovieDisc sach = new MovieDisc(id,tensp,Product.MOVIE_DISC,soluong,giamua,giaban,buytime,daodien,dienvien,"");
+					MovieDisc sach = new MovieDisc(MovieDisc.genID(),tensp,Product.MOVIE_DISC,soluong,giamua,giaban,buytime,daodien,dienvien,"");
 					
 					db.saveMovieDisc(sach);
 					
@@ -143,22 +138,10 @@ public class AddMoviesView extends JDialog  implements ActionListener{
 
 	
 	private boolean checkFormat(){
-		if(tfID.getText().length()!=8||tfID.getText().charAt(0)!='M'||tfID.getText().charAt(1)!='V') {
-			JOptionPane.showMessageDialog(null, "ID phải có 8 kí tự bắt đầu bởi 'MV'", "Warning",
-					JOptionPane.WARNING_MESSAGE);
-			return false;
-		}
-		else if (db.findMovieDisc(tfID.getText())!=null) {
-			JOptionPane.showMessageDialog(null, "ID đĩa phim '" + tfID.getText() + "' đã tồn tại!", "Warning",
-					JOptionPane.WARNING_MESSAGE);
-			return false;
-		} 
-	
-		else if(tfTenSP.getText().equals(null) || tfTenSP.getText().equals("") ||
+		if(tfTenSP.getText().equals(null) || tfTenSP.getText().equals("") ||
 				tfSoLuong.getText().equals(null) || tfSoLuong.getText().equals("") ||
 				tfDaoDien.getText().equals(null) || tfDaoDien.getText().equals("") ||
 				tfDienVien.getText().equals(null) || tfDienVien.getText().equals("") ||
-				tfID.getText().equals(null) || tfID.getText().equals("") ||
 				tfGiaMua.getText().equals(null) || tfGiaMua.getText().equals("") ||
 				tfGiaBan.getText().equals(null) || tfGiaBan.getText().equals("") )
 		{
