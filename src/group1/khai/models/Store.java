@@ -25,7 +25,7 @@ public class Store {
 		Timestamp now = new Timestamp(time.getYear(), time.getMonth(), time.getDate(), time.getHours(), time.getMinutes(), time.getSeconds(), 0);
 		for(Fee fe:costList) {
 			Timestamp last = fe.getLastRequest();
-			int day=(now.getYear()-last.getYear())*360+(now.getMonth()-last.getMonth()*30+now.getDate()-last.getDate());
+			int day=(now.getYear()-last.getYear())*360+(now.getMonth()-last.getMonth())*30+now.getDate()-last.getDate();
 			int count = day/fe.getFeeCycle();
 			for(int i=0;i<count;i++) {
 				dbconnector.savePaid(new Paid(Paid.genID(), fe.getFeeName(), false, fe.getFeeValue(), now, null));
