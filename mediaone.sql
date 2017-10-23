@@ -26,6 +26,7 @@ CREATE TABLE `bill` (
   `ID` char(9) NOT NULL,
   `employeeID` char(9) NOT NULL,
   `customerID` char(9) NOT NULL,
+  `sellTimestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`ID`),
   KEY `key_phu6` (`employeeID`),
   KEY `key_phu7` (`customerID`),
@@ -54,6 +55,7 @@ CREATE TABLE `billdetail` (
   `ID` char(9) NOT NULL,
   `billID` char(9) NOT NULL,
   `productID` char(9) NOT NULL,
+  `productNumber` int(11) NOT NULL,
   PRIMARY KEY (`ID`),
   KEY `key_phu8` (`billID`),
   KEY `key_phu9` (`productID`),
@@ -94,6 +96,7 @@ CREATE TABLE `book` (
 
 LOCK TABLES `book` WRITE;
 /*!40000 ALTER TABLE `book` DISABLE KEYS */;
+INSERT INTO `book` VALUES ('BK000001','Ảo tưởng','Nguyễn Bá Khải đẹp trai','');
 /*!40000 ALTER TABLE `book` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -131,7 +134,7 @@ DROP TABLE IF EXISTS `employee`;
 CREATE TABLE `employee` (
   `ID` char(9) NOT NULL,
   `salary` double NOT NULL,
-  `passsword` varchar(256) NOT NULL,
+  `password` varchar(256) DEFAULT NULL,
   PRIMARY KEY (`ID`),
   CONSTRAINT `key_phu2` FOREIGN KEY (`ID`) REFERENCES `human` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -143,6 +146,7 @@ CREATE TABLE `employee` (
 
 LOCK TABLES `employee` WRITE;
 /*!40000 ALTER TABLE `employee` DISABLE KEYS */;
+INSERT INTO `employee` VALUES ('20151998',1000,'khailinh1997');
 /*!40000 ALTER TABLE `employee` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -191,6 +195,7 @@ CREATE TABLE `human` (
 
 LOCK TABLES `human` WRITE;
 /*!40000 ALTER TABLE `human` DISABLE KEYS */;
+INSERT INTO `human` VALUES ('20151998','Nguyễn Bá Khải','01699417566');
 /*!40000 ALTER TABLE `human` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -217,6 +222,7 @@ CREATE TABLE `moviedisc` (
 
 LOCK TABLES `moviedisc` WRITE;
 /*!40000 ALTER TABLE `moviedisc` DISABLE KEYS */;
+INSERT INTO `moviedisc` VALUES ('MV000001','Khải','Khải','');
 /*!40000 ALTER TABLE `moviedisc` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -243,6 +249,7 @@ CREATE TABLE `musicdisc` (
 
 LOCK TABLES `musicdisc` WRITE;
 /*!40000 ALTER TABLE `musicdisc` DISABLE KEYS */;
+INSERT INTO `musicdisc` VALUES ('MS000001','Nguyễn Bá Khải','Khải','');
 /*!40000 ALTER TABLE `musicdisc` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -289,7 +296,6 @@ CREATE TABLE `product` (
   `buyPrice` double NOT NULL,
   `sellPrice` double NOT NULL,
   `buyTimestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `sellTimestamp` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -300,6 +306,7 @@ CREATE TABLE `product` (
 
 LOCK TABLES `product` WRITE;
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
+INSERT INTO `product` VALUES ('BK000001','Nguyễn Bá Khải tự truyện',1,10,300000,400000,'2017-10-23 08:04:56'),('MS000001','Khải hát',1,1,2,3,'2017-10-23 08:13:27'),('MV000001','Khải',3,1,2,3,'2017-10-23 08:19:45');
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -312,4 +319,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-10-21 20:37:25
+-- Dump completed on 2017-10-23 15:50:11

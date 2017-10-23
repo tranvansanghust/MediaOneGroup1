@@ -16,24 +16,25 @@ public class ChoicePanel extends JPanel implements ActionListener{
 	private JButton btnThongKe;
 	private JButton btnDangXuat;
 	private JButton btnThongTin;
-	private JButton btnDoiMatKhau;
+	private JButton btnDonHang;
 	
 	public ChoicePanel() {
 		setLayout(new GridLayout(8, 1, 10, 10));
 		setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED));
 		setBorder(BorderFactory.createTitledBorder("Danh mục"));
-		btnKhachHang =  createButtons("KHÁCH HÀNG");
 		btnSanPham   =  createButtons("SẢN PHẨM");
+		btnDonHang = createButtons("ĐƠN HÀNG");
+		btnKhachHang =  createButtons("KHÁCH HÀNG");
 		btnThongKe   =  createButtons("THỐNG KÊ");
 		btnDangXuat  =  createButtons("ĐĂNG XUẤT");
-		btnDoiMatKhau = createButtons("ĐỔI MẬT KHẨU");
 		btnThongTin = createButtons("THÔNG TIN TK");
 		
-		add(btnKhachHang);
+		
 		add(btnSanPham);
+		add(btnDonHang);
+		add(btnKhachHang);
 		add(btnThongKe);
 		add(btnThongTin);
-		add(btnDoiMatKhau);
 		add(btnDangXuat);
 	}
 	
@@ -89,13 +90,15 @@ public class ChoicePanel extends JPanel implements ActionListener{
 		this.btnThongTin = btnThongTin;
 	}
 
-	public JButton getBtnDoiMatKhau() {
-		return btnDoiMatKhau;
+	public JButton getBtnDonHang() {
+		return btnDonHang;
 	}
 
-	public void setBtnDoiMatKhau(JButton btnDoiMatKhau) {
-		this.btnDoiMatKhau = btnDoiMatKhau;
+	public void setBtnDonHang(JButton btnDonHang) {
+		this.btnDonHang = btnDonHang;
 	}
+
+
 
 	
 }

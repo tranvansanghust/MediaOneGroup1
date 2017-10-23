@@ -1,4 +1,4 @@
-package Appilication;
+package group1.appilication;
 
 import group1.khai.book.controllers.AddBookController;
 import group1.khai.book.controllers.DeleteBookController;
