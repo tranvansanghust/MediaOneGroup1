@@ -42,7 +42,7 @@ public class AddBookView extends JDialog  implements ActionListener {
 		setSize(400, 300);
 		setLocationRelativeTo(null);
 		setLayout(new BorderLayout(10, 10));
-		setTitle("Thêm nhân viên");
+		setTitle("Thêm Sách");
 
 		lbID       	= new JLabel("ID");
 		lbTenSP    	= new JLabel("Tên sách");
@@ -116,7 +116,7 @@ public class AddBookView extends JDialog  implements ActionListener {
 					
 					Book sach = new Book(id,tensp,Product.BOOK,soluong,giamua,giaban,buytime,null,nxb,tacgia,"");
 					
-					
+					db.saveBook(sach);
 					
 					dispose();
 					
