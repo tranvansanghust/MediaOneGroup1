@@ -118,7 +118,7 @@ public class AddMoviesView extends JDialog  implements ActionListener{
 					String dienvien = tfDienVien.getText();
 					
 					
-					MovieDisc sach = new MovieDisc(id,tensp,Product.MOVIE_DISC,soluong,giamua,giaban,buytime,null,daodien,dienvien,"");
+					MovieDisc sach = new MovieDisc(id,tensp,Product.MOVIE_DISC,soluong,giamua,giaban,buytime,daodien,dienvien,"");
 					
 					db.saveMovieDisc(sach);
 					
@@ -126,7 +126,7 @@ public class AddMoviesView extends JDialog  implements ActionListener{
 					
 					List<MovieDisc> list = db.getAllMovieDiscs();
 					tableMoviesPanel.updateTable(list);
-					JOptionPane.showMessageDialog(null, "Thêm sách thành công");
+					JOptionPane.showMessageDialog(null, "Thêm đĩa thành công");
 					
 					 
 				} catch (Exception e1) {
@@ -143,8 +143,13 @@ public class AddMoviesView extends JDialog  implements ActionListener{
 
 	
 	private boolean checkFormat(){
-		if (db.findMovieDisc(tfID.getText())!=null) {
-			JOptionPane.showMessageDialog(null, "ID sách '" + tfID.getText() + "' đã tồn tại!", "Warning",
+		if(tfID.getText().length()!=8||tfID.getText().charAt(0)!='M'||tfID.getText().charAt(1)!='V') {
+			JOptionPane.showMessageDialog(null, "ID phải có 8 kí tự bắt đầu bởi 'MV'", "Warning",
+					JOptionPane.WARNING_MESSAGE);
+			return false;
+		}
+		else if (db.findMovieDisc(tfID.getText())!=null) {
+			JOptionPane.showMessageDialog(null, "ID đĩa phim '" + tfID.getText() + "' đã tồn tại!", "Warning",
 					JOptionPane.WARNING_MESSAGE);
 			return false;
 		} 

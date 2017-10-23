@@ -117,7 +117,7 @@ public class AddMusicView extends JDialog  implements ActionListener{
 					String casi = tfCaSi.getText();
 					
 					
-					MusicDisc sach = new MusicDisc(id,tensp,Product.BOOK,soluong,giamua,giaban,buytime,null,tacgia,casi,"");
+					MusicDisc sach = new MusicDisc(id,tensp,Product.BOOK,soluong,giamua,giaban,buytime,tacgia,casi,"");
 					
 					db.saveMusicDisc(sach);
 					
@@ -125,7 +125,7 @@ public class AddMusicView extends JDialog  implements ActionListener{
 					
 					List<MusicDisc> list = db.getAllMusicDiscs();
 					tableMusicPanel.updateTable(list);
-					JOptionPane.showMessageDialog(null, "Thêm sách thành công");
+					JOptionPane.showMessageDialog(null, "Thêm đĩa thành công");
 					
 					 
 				} catch (Exception e1) {
@@ -142,11 +142,16 @@ public class AddMusicView extends JDialog  implements ActionListener{
 
 	
 	private boolean checkFormat(){
-		if (db.findMusicDisc(tfID.getText())!=null) {
-			JOptionPane.showMessageDialog(null, "ID sách '" + tfID.getText() + "' đã tồn tại!", "Warning",
+		if(tfID.getText().length()!=8||tfID.getText().charAt(0)!='M'||tfID.getText().charAt(1)!='S') {
+			JOptionPane.showMessageDialog(null, "ID phải có 8 kí tự bắt đầu bởi 'MS'", "Warning",
 					JOptionPane.WARNING_MESSAGE);
 			return false;
-		} 
+		}
+		else if (db.findMusicDisc(tfID.getText())!=null) {
+			JOptionPane.showMessageDialog(null, "ID đĩa nhạc '" + tfID.getText() + "' đã tồn tại!", "Warning",
+					JOptionPane.WARNING_MESSAGE);
+			return false;
+		}
 	
 		else if(tfTenSP.getText().equals(null) || tfTenSP.getText().equals("") ||
 				tfSoLuong.getText().equals(null) || tfSoLuong.getText().equals("") ||

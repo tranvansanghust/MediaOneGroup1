@@ -18,7 +18,7 @@ public class TableMusicPanel extends JPanel{
 	private JTable table;
 	private JScrollPane scroll;
 
-	private String[] columns = { "ID", "Tên đĩa nhạc", "Thể loại", "Ca sĩ", "Số lượng tồn kho", "giá mua","giá bán","ngày nhập hàng cuối" };
+	private String[] columns = { "ID", "Tên đĩa nhạc", "Tác giả", "Ca sĩ", "Số lượng tồn kho", "giá mua","giá bán","ngày nhập hàng cuối" };
 
 	public TableMusicPanel() {
 		setLayout(new BorderLayout(10, 0));
@@ -77,9 +77,9 @@ public class TableMusicPanel extends JPanel{
 			MusicDisc s = list.get(i);
 			data[i][0] = s.getID();
 			data[i][1] = s.getProductName();
-			data[i][2] = s.getDicsType();
+			data[i][2] = s.getAuthorName();
 			data[i][3] = s.getSingerName();
-			data[i][4] = Double.toString(s.getProductQuota());
+			data[i][4] = Long.toString(s.getProductQuota());
 			data[i][5] = format.format(s.getBuyPrice()).toString();
 			data[i][6] = format.format(s.getSellPrice()).toString();
 			data[i][7] = s.getBuyTimestamp().toString();

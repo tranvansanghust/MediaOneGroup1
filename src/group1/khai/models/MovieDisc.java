@@ -12,8 +12,8 @@ public class MovieDisc extends Product {
 	}
 
 	public MovieDisc(String iD, String productName, int productType, long productQuota, double buyPrice, double sellPrice,
-			Timestamp buyTimestamp, Timestamp sellTimestamp,String directorName, String actorName, String dicsType) {
-		super(iD,productName,productType,productQuota,buyPrice,sellPrice,buyTimestamp,sellTimestamp);
+			Timestamp buyTimestamp,String directorName, String actorName, String dicsType) {
+		super(iD,productName,productType,productQuota,buyPrice,sellPrice,buyTimestamp);
 		this.directorName = directorName;
 		this.actorName = actorName;
 		this.dicsType = dicsType;

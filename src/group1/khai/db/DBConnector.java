@@ -48,25 +48,13 @@ public class DBConnector {
 
 	public boolean saveBook(Book book) {
 		try {
-			Timestamp t = book.getSellTimestamp();
-			String query;
-			if (book.getSellTimestamp() != null) {
 
-				query = "insert into Product(id,productName,productType,productQuota,"
-						+ "buyPrice,sellPrice,buyTimestamp,sellTimestamp)" + "values ('" + book.getID() + "','"
-						+ book.getProductName() + "','" + Product.BOOK + "','" + book.getProductQuota() + "','"
-						+ book.getBuyPrice() + "','" + book.getSellPrice() + "','" + book.getBuyTimestamp() + "','" + t
-						+ "');";
-				stm.executeUpdate(query);
-			}
-			else {
-				query = "insert into Product(id,productName,productType,productQuota,"
-						+ "buyPrice,sellPrice,buyTimestamp)" + "values ('" + book.getID() + "','"
-						+ book.getProductName() + "','" + Product.BOOK + "','" + book.getProductQuota() + "','"
-						+ book.getBuyPrice() + "','" + book.getSellPrice() + "','" + book.getBuyTimestamp() 
-						+ "');";
-				stm.executeUpdate(query);
-			}
+			String query = "insert into Product(id,productName,productType,productQuota,"
+					+ "buyPrice,sellPrice,buyTimestamp)" + "values ('" + book.getID() + "','" + book.getProductName()
+					+ "','" + Product.BOOK + "','" + book.getProductQuota() + "','" + book.getBuyPrice() + "','"
+					+ book.getSellPrice() + "','" + book.getBuyTimestamp() + "');";
+			stm.executeUpdate(query);
+
 			query = "insert into Book(ID,publishingCompany,authorName,bookType) values ('" + book.getID() + "','"
 					+ book.getPublishingCompany() + "','" + book.getAuthorName() + "','" + book.getBookType() + "');";
 			stm.executeUpdate(query);
@@ -76,27 +64,16 @@ public class DBConnector {
 		}
 		return false;
 	}
+
 	public boolean saveMovieDisc(MovieDisc book) {
 		try {
-			Timestamp t = book.getSellTimestamp();
-			String query;
-			if (book.getSellTimestamp() != null) {
 
-				query = "insert into Product(id,productName,productType,productQuota,"
-						+ "buyPrice,sellPrice,buyTimestamp,sellTimestamp)" + "values ('" + book.getID() + "','"
-						+ book.getProductName() + "','" + Product.BOOK + "','" + book.getProductQuota() + "','"
-						+ book.getBuyPrice() + "','" + book.getSellPrice() + "','" + book.getBuyTimestamp() + "','" + t
-						+ "');";
-				stm.executeUpdate(query);
-			}
-			else {
-				query = "insert into Product(id,productName,productType,productQuota,"
-						+ "buyPrice,sellPrice,buyTimestamp)" + "values ('" + book.getID() + "','"
-						+ book.getProductName() + "','" + Product.MOVIE_DISC + "','" + book.getProductQuota() + "','"
-						+ book.getBuyPrice() + "','" + book.getSellPrice() + "','" + book.getBuyTimestamp() 
-						+ "');";
-				stm.executeUpdate(query);
-			}
+			String query = "insert into Product(id,productName,productType,productQuota,"
+					+ "buyPrice,sellPrice,buyTimestamp)" + "values ('" + book.getID() + "','" + book.getProductName()
+					+ "','" + Product.MOVIE_DISC + "','" + book.getProductQuota() + "','" + book.getBuyPrice() + "','"
+					+ book.getSellPrice() + "','" + book.getBuyTimestamp() + "');";
+			stm.executeUpdate(query);
+
 			query = "insert into MovieDisc(ID,directorName,actorName,dicstype) values ('" + book.getID() + "','"
 					+ book.getDirectorName() + "','" + book.getActorName() + "','" + book.getDicsType() + "');";
 			stm.executeUpdate(query);
@@ -106,27 +83,17 @@ public class DBConnector {
 		}
 		return false;
 	}
+
 	public boolean saveMusicDisc(MusicDisc book) {
 		try {
-			Timestamp t = book.getSellTimestamp();
 			String query;
-			if (book.getSellTimestamp() != null) {
 
-				query = "insert into Product(id,productName,productType,productQuota,"
-						+ "buyPrice,sellPrice,buyTimestamp,sellTimestamp)" + "values ('" + book.getID() + "','"
-						+ book.getProductName() + "','" + Product.MUSIC_DISC + "','" + book.getProductQuota() + "','"
-						+ book.getBuyPrice() + "','" + book.getSellPrice() + "','" + book.getBuyTimestamp() + "','" + t
-						+ "');";
-				stm.executeUpdate(query);
-			}
-			else {
-				query = "insert into Product(id,productName,productType,productQuota,"
-						+ "buyPrice,sellPrice,buyTimestamp)" + "values ('" + book.getID() + "','"
-						+ book.getProductName() + "','" + Product.BOOK + "','" + book.getProductQuota() + "','"
-						+ book.getBuyPrice() + "','" + book.getSellPrice() + "','" + book.getBuyTimestamp() 
-						+ "');";
-				stm.executeUpdate(query);
-			}
+			query = "insert into Product(id,productName,productType,productQuota," + "buyPrice,sellPrice,buyTimestamp)"
+					+ "values ('" + book.getID() + "','" + book.getProductName() + "','" + Product.BOOK + "','"
+					+ book.getProductQuota() + "','" + book.getBuyPrice() + "','" + book.getSellPrice() + "','"
+					+ book.getBuyTimestamp() + "');";
+			stm.executeUpdate(query);
+
 			query = "insert into MusicDisc(ID,authorName,singerName,dicstype) values ('" + book.getID() + "','"
 					+ book.getAuthorName() + "','" + book.getSingerName() + "','" + book.getDicsType() + "');";
 			stm.executeUpdate(query);
@@ -136,6 +103,7 @@ public class DBConnector {
 		}
 		return false;
 	}
+
 	public Employee findEmployee(String id, String password) {
 		try {
 			String query = "select * from Human,Employee where Human.id = employee.id and Human.ID='" + id + "';";
@@ -166,18 +134,18 @@ public class DBConnector {
 			double buyPrice = rs.getDouble("buyPrice");
 			double sellPrice = rs.getDouble("sellPrice");
 			Timestamp buyTimestamp = rs.getTimestamp("buyTimestamp");
-			Timestamp sellTimestamp = rs.getTimestamp("sellTimestamp");
 			String publishingCompany = rs.getString("publishingCompany");
-			String authorName = rs.getString("publishingCompany");
+			String authorName = rs.getString("authorName");
 			String bookType = rs.getString("bookType");
 			return new Book(iD, productName, productType, productQuota, buyPrice, sellPrice, buyTimestamp,
-					sellTimestamp, publishingCompany, authorName, bookType);
+					publishingCompany, authorName, bookType);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
 	}
+
 	public MovieDisc findMovieDisc(String ID) {
 		try {
 			String query = "select * from MovieDisc,product where product.id=moviedisc.id and product.ID='" + ID + "';";
@@ -191,18 +159,18 @@ public class DBConnector {
 			double buyPrice = rs.getDouble("buyPrice");
 			double sellPrice = rs.getDouble("sellPrice");
 			Timestamp buyTimestamp = rs.getTimestamp("buyTimestamp");
-			Timestamp sellTimestamp = rs.getTimestamp("sellTimestamp");
 			String director = rs.getString("directorName");
 			String actor = rs.getString("actorName");
 			String dicsType = rs.getString("dicsType");
 			return new MovieDisc(iD, productName, productType, productQuota, buyPrice, sellPrice, buyTimestamp,
-					sellTimestamp, director, actor, dicsType);
+					director, actor, dicsType);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
 	}
+
 	public MusicDisc findMusicDisc(String ID) {
 		try {
 			String query = "select * from MusicDisc,product where musicdisc.id=product.id and product.ID='" + ID + "';";
@@ -216,18 +184,18 @@ public class DBConnector {
 			double buyPrice = rs.getDouble("buyPrice");
 			double sellPrice = rs.getDouble("sellPrice");
 			Timestamp buyTimestamp = rs.getTimestamp("buyTimestamp");
-			Timestamp sellTimestamp = rs.getTimestamp("sellTimestamp");
-			String author = rs.getString("directorName");
-			String singer = rs.getString("actorName");
+			String author = rs.getString("authorName");
+			String singer = rs.getString("singerName");
 			String dicsType = rs.getString("dicsType");
-			return new MusicDisc(iD, productName, productType, productQuota, buyPrice, sellPrice, buyTimestamp,
-					sellTimestamp, author, singer, dicsType);
+			return new MusicDisc(iD, productName, productType, productQuota, buyPrice, sellPrice, buyTimestamp, author,
+					singer, dicsType);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
 	}
+
 	public List<Book> getAllBooks() {
 		List<Book> result = new LinkedList<Book>();
 		try {
@@ -241,12 +209,11 @@ public class DBConnector {
 				double buyPrice = rs.getDouble("buyPrice");
 				double sellPrice = rs.getDouble("sellPrice");
 				Timestamp buyTimestamp = rs.getTimestamp("buyTimestamp");
-				Timestamp sellTimestamp = rs.getTimestamp("sellTimestamp");
 				String publishingCompany = rs.getString("publishingCompany");
-				String authorName = rs.getString("publishingCompany");
+				String authorName = rs.getString("authorName");
 				String bookType = rs.getString("bookType");
 				result.add(new Book(iD, productName, productType, productQuota, buyPrice, sellPrice, buyTimestamp,
-						sellTimestamp, publishingCompany, authorName, bookType));
+						publishingCompany, authorName, bookType));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -267,12 +234,11 @@ public class DBConnector {
 				double buyPrice = rs.getDouble("buyPrice");
 				double sellPrice = rs.getDouble("sellPrice");
 				Timestamp buyTimestamp = rs.getTimestamp("buyTimestamp");
-				Timestamp sellTimestamp = rs.getTimestamp("sellTimestamp");
 				String authorName = rs.getString("authorName");
 				String singerName = rs.getString("singerName");
 				String dicsType = rs.getString("dicsType");
 				result.add(new MusicDisc(iD, productName, productType, productQuota, buyPrice, sellPrice, buyTimestamp,
-						sellTimestamp, authorName, singerName, dicsType));
+						authorName, singerName, dicsType));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -293,12 +259,11 @@ public class DBConnector {
 				double buyPrice = rs.getDouble("buyPrice");
 				double sellPrice = rs.getDouble("sellPrice");
 				Timestamp buyTimestamp = rs.getTimestamp("buyTimestamp");
-				Timestamp sellTimestamp = rs.getTimestamp("sellTimestamp");
 				String directorName = rs.getString("directorName");
 				String actorName = rs.getString("actorName");
 				String dicsType = rs.getString("dicsType");
 				result.add(new MovieDisc(iD, productName, productType, productQuota, buyPrice, sellPrice, buyTimestamp,
-						sellTimestamp, directorName, actorName, dicsType));
+						directorName, actorName, dicsType));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -322,5 +287,80 @@ public class DBConnector {
 			e.printStackTrace();
 		}
 		return result;
+	}
+
+	public void deleteBook(String id) {
+		try {
+			String query = "delete from Book where id='" + id + "';";
+			stm.executeUpdate(query);
+			query = "delete from Product where id='" + id + "';";
+			stm.executeUpdate(query);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void deleteMovieDisc(String id) {
+		try {
+			String query = "delete from MovieDisc where id='" + id + "';";
+			stm.executeUpdate(query);
+			query = "delete from Product where id='" + id + "';";
+			stm.executeUpdate(query);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void deleteMusicDisc(String id) {
+		try {
+			String query = "delete from MusicDisc where id='" + id + "';";
+			stm.executeUpdate(query);
+			query = "delete from Product where id='" + id + "';";
+			stm.executeUpdate(query);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	public void updateBook(Book bk) {
+		try {
+			String query = "update Product set productName='" + bk.getProductName() + "',"
+					+ " productQuota='"+bk.getProductQuota()+"',"
+					+"  buyPrice="+bk.getBuyPrice()+","
+					+" sellPrice="+bk.getSellPrice()+" where id='"+bk.getID()+"';";
+			stm.executeUpdate(query);
+			query = "update  Book "+"set publishingCompany='"+bk.getPublishingCompany()
+			+"',authorName='"+bk.getAuthorName()+"'"+" where id='" + bk.getID() + "';";
+			stm.executeUpdate(query);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	public void updateMovieDisc(MovieDisc bk) {
+		try {
+			String query = "update Product set productName='" + bk.getProductName() + "',"
+					+ " productQuota='"+bk.getProductQuota()+"',"
+					+"  buyPrice="+bk.getBuyPrice()+","
+					+" sellPrice="+bk.getSellPrice()+" where id='"+bk.getID()+"';";
+			stm.executeUpdate(query);
+			query = "update  MovieDisc "+"set DirectorName='"+bk.getDirectorName()
+			+"',actorName='"+bk.getActorName()+"'"+" where id='" + bk.getID() + "';";
+			stm.executeUpdate(query);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	public void updateMusicDisc(MusicDisc bk) {
+		try {
+			String query = "update Product set productName='" + bk.getProductName() + "',"
+					+ " productQuota='"+bk.getProductQuota()+"',"
+					+"  buyPrice="+bk.getBuyPrice()+","
+					+" sellPrice="+bk.getSellPrice()+" where id='"+bk.getID()+"';";
+			stm.executeUpdate(query);
+			query = "update  MusicDisc "+"set authorName='"+bk.getAuthorName()
+			+"',singerName='"+bk.getSingerName()+"'"+" where id='" + bk.getID() + "';";
+			stm.executeUpdate(query);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }

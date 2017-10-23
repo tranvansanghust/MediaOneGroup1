@@ -11,12 +11,11 @@ public class Product {
 	private double buyPrice;
 	private double sellPrice;
 	private Timestamp buyTimestamp;
-	private Timestamp sellTimestamp;
 	public Product() {
 		
 	}
 	public Product(String iD, String productName, int productType, long productQuota, double buyPrice, double sellPrice,
-			Timestamp buyTimestamp, Timestamp sellTimestamp) {
+			Timestamp buyTimestamp) {
 		super();
 		setID(iD);
 		setProductName(productName);
@@ -25,7 +24,7 @@ public class Product {
 		setBuyPrice(buyPrice);
 		setSellPrice(sellPrice);
 		this.buyTimestamp = buyTimestamp;
-		this.sellTimestamp = sellTimestamp;
+		
 	}
 	/**
 	 * ID must be a 8 Character String
@@ -128,12 +127,6 @@ public class Product {
 		this.buyTimestamp = buyTimestamp;
 	}
 
-	public Timestamp getSellTimestamp() {
-		return sellTimestamp;
-	}
 
-	public void setSellTimestamp(Timestamp sellTimestamp) {
-		this.sellTimestamp = sellTimestamp;
-	}
 
 }

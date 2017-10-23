@@ -2,25 +2,30 @@ package group1.khai.musicdisc.view;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import group1.khai.db.DBConnector;
+import group1.khai.models.MovieDisc;
 import group1.khai.models.MusicDisc;
 
 
-public class EditMusicView extends JDialog  {
+public class EditMusicView extends JDialog  implements ActionListener{
 
 	
-	private JLabel 		lbID, lbTenSP, lbSoLuong, lbGiaMua, lbGiaBan, lbNgayNhapCuoi, lbTheLoai, lbCaSi;
-	private JTextField 	tfID, tfTenSP, tfSoLuong, tfGiaMua, tfGiaBan, tfNgayNhapCuoi, tfTheLoai, tfCaSi;
+	private JLabel 		 lbTenSP, lbSoLuong, lbGiaMua, lbGiaBan, lbTacGia, lbCaSi;
+	private JTextField 	 tfTenSP, tfSoLuong, tfGiaMua, tfGiaBan, tfTacGia, tfCaSi;
 	private JPanel p1, p2,p3;
-	private JButton btnThem, btnHuy;
+	private JButton btnSua, btnHuy;
 	private DBConnector db;
 	private TableMusicPanel tableMusicPanel;
 	private MusicDisc dianhac;
@@ -33,30 +38,28 @@ public class EditMusicView extends JDialog  {
 		setSize(400, 300);
 		setLocationRelativeTo(null);
 		setLayout(new BorderLayout(10, 10));
-		setTitle("Thêm nhân viên");
+		setTitle("Sửa thông tin đĩa nhạc");
 
-		lbID       	= new JLabel("ID");
 		lbTenSP    	= new JLabel("Tên đĩa nhạc");
 		lbSoLuong 	= new JLabel("Số lượng");
 		lbGiaMua 	= new JLabel("Giá mua");
 		lbGiaBan 	= new JLabel("Giá bán");
-		lbNgayNhapCuoi = new JLabel("Ngày nhập");
-		lbTheLoai   	= new JLabel("Thể loại");
+
+		lbTacGia   	= new JLabel("Tác giả");
 		lbCaSi    = new JLabel("Ca sĩ");
 		
 		
-		tfID       	= new JTextField(20);
-		tfTenSP    	= new JTextField(20);
-		tfSoLuong 	= new JTextField(20);
-		tfGiaMua   	= new JTextField(20);
-		tfGiaBan    = new JTextField(20);
-		tfNgayNhapCuoi 	= new JTextField(20);
-		tfTheLoai   	= new JTextField(20);
-		tfCaSi    = new JTextField(20);
+
+		tfTenSP    	= new JTextField(20); tfTenSP.setText(dianhac.getProductName());
+		tfSoLuong 	= new JTextField(20); tfSoLuong.setText(Long.toString(dianhac.getProductQuota()));
+		tfGiaMua   	= new JTextField(20); tfGiaMua.setText(Double.toString(dianhac.getBuyPrice()));
+		tfGiaBan    = new JTextField(20); tfGiaBan.setText(Double.toString(dianhac.getSellPrice()));
+		tfCaSi   	= new JTextField(20); tfCaSi.setText(dianhac.getSingerName());
+		tfTacGia    = new JTextField(20); tfTacGia.setText(dianhac.getAuthorName());
 		
 		
-		btnThem    = new JButton("Thêm");		
-		btnHuy     = new JButton("Hủy ");		
+		btnSua    = new JButton("Thêm");		btnSua.addActionListener(this);
+		btnHuy     = new JButton("Hủy ");		btnHuy.addActionListener(this);
 		
 		
 		
@@ -69,17 +72,16 @@ public class EditMusicView extends JDialog  {
 		p2.setLayout(new GridLayout(8, 1, 10, 10));		p2.setBorder(new EmptyBorder(10,10,10,10));
 		p3.setLayout(new GridLayout(1, 2, 10, 10));		p3.setBorder(new EmptyBorder(10,10,10,10));
 		
-		p1.add(lbID);           p2.add(tfID);
+	
 		p1.add(lbTenSP);		p2.add(tfTenSP);
-		p1.add(lbTheLoai);			p2.add(tfTheLoai);
+		p1.add(lbTacGia);			p2.add(tfTacGia);
 		p1.add(lbCaSi);		p2.add(tfCaSi);
 		p1.add(lbSoLuong);		p2.add(tfSoLuong);	
 		p1.add(lbGiaMua);		p2.add(tfGiaMua);	 
 		p1.add(lbGiaBan);		p2.add(tfGiaBan);	
-		p1.add(lbNgayNhapCuoi);	p2.add(tfNgayNhapCuoi);
 		
 		
-		p3.add(btnThem);		p3.add(btnHuy);
+		p3.add(btnSua);		p3.add(btnHuy);
 		
 		add(p1,BorderLayout.WEST);
 		add(p3,BorderLayout.SOUTH);
@@ -90,7 +92,43 @@ public class EditMusicView extends JDialog  {
 		pack();
 		setVisible(true);
 	}
-	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource()==btnHuy) {
+			this.dispose();
+		}
+		else if(e.getSource()==btnSua) {
+			if(tfTenSP.getText().equals(null) || tfTenSP.getText().equals("") ||
+					tfSoLuong.getText().equals(null) || tfSoLuong.getText().equals("") ||
+					tfTacGia.getText().equals(null) || tfTacGia.getText().equals("") ||
+					tfCaSi.getText().equals(null) || tfCaSi.getText().equals("") ||
+					tfGiaMua.getText().equals(null) || tfGiaMua.getText().equals("") ||
+					tfGiaBan.getText().equals(null) || tfGiaBan.getText().equals("") )
+			{
+				JOptionPane.showMessageDialog(null, "Các trường dữ liệu không được để trống","Cảnh báo",JOptionPane.WARNING_MESSAGE);
+			}
+			else if(dianhac.getProductName().equals(tfTenSP.getText())&&dianhac.getProductQuota()==Long.parseLong(tfSoLuong.getText())
+					&&dianhac.getBuyPrice()==Double.parseDouble(tfGiaMua.getText())
+					&&dianhac.getSellPrice()==Double.parseDouble(tfGiaBan.getText())
+					&&dianhac.getAuthorName().equals(tfTacGia.getText())
+					&&dianhac.getSingerName().equals(tfCaSi.getText())) {
+				JOptionPane.showMessageDialog(null, "Chưa thay đổi");
+			}
+			else {
+				dianhac.setProductName(tfTenSP.getText());
+				dianhac.setProductQuota(Long.parseLong(tfSoLuong.getText()));
+				dianhac.setBuyPrice(Double.parseDouble(tfGiaMua.getText()));
+				dianhac.setSellPrice(Double.parseDouble(tfGiaBan.getText()));
+				dianhac.setAuthorName(tfTacGia.getText());
+				dianhac.setSingerName(tfCaSi.getText());
+				db.updateMusicDisc(dianhac);
+				this.dispose();
+				List<MusicDisc> list = db.getAllMusicDiscs();
+				tableMusicPanel.updateTable(list);
+			}
+		}
+		
+	}
 	
 	
 }

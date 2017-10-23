@@ -114,7 +114,7 @@ public class AddBookView extends JDialog  implements ActionListener {
 					String tacgia = tfTacGia.getText();
 					
 					
-					Book sach = new Book(id,tensp,Product.BOOK,soluong,giamua,giaban,buytime,null,nxb,tacgia,"");
+					Book sach = new Book(id,tensp,Product.BOOK,soluong,giamua,giaban,buytime,nxb,tacgia,"");
 					
 					db.saveBook(sach);
 					
@@ -139,7 +139,12 @@ public class AddBookView extends JDialog  implements ActionListener {
 
 	
 	private boolean checkFormat(){
-		if (db.findBook(tfID.getText())!=null) {
+		if(tfID.getText().length()!=8||tfID.getText().charAt(0)!='B'||tfID.getText().charAt(1)!='K') {
+			JOptionPane.showMessageDialog(null, "ID phải có 8 kí tự bắt đầu bởi 'BK'", "Warning",
+					JOptionPane.WARNING_MESSAGE);
+			return false;
+		}
+		else if (db.findBook(tfID.getText())!=null) {
 			JOptionPane.showMessageDialog(null, "ID sách '" + tfID.getText() + "' đã tồn tại!", "Warning",
 					JOptionPane.WARNING_MESSAGE);
 			return false;

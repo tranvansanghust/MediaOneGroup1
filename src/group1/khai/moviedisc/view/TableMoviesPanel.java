@@ -71,7 +71,7 @@ public class TableMoviesPanel extends JPanel{
 			data[i][1] = s.getProductName();
 			data[i][2] = s.getDirectorName();
 			data[i][3] = s.getActorName();
-			data[i][4] = Double.toString(s.getProductQuota());
+			data[i][4] = Long.toString(s.getProductQuota());
 			data[i][5] = format.format(s.getBuyPrice()).toString();
 			data[i][6] = format.format(s.getSellPrice()).toString();
 			data[i][7] = s.getBuyTimestamp().toString();

@@ -12,8 +12,8 @@ public class MusicDisc extends Product{
 	}
 	
 	public MusicDisc(String iD, String productName, int productType, long productQuota, double buyPrice, double sellPrice,
-			Timestamp buyTimestamp, Timestamp sellTimestamp,String authorName, String singerName, String dicsType) {
-		super(iD,productName,productType,productQuota,buyPrice,sellPrice,buyTimestamp,sellTimestamp);
+			Timestamp buyTimestamp,String authorName, String singerName, String dicsType) {
+		super(iD,productName,productType,productQuota,buyPrice,sellPrice,buyTimestamp);
 		this.authorName = authorName;
 		this.singerName = singerName;
 		this.dicsType = dicsType;

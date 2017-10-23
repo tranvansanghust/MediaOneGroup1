@@ -1,7 +1,6 @@
 package group1.khai.models;
 
-
-
+import java.sql.Timestamp;
 
 public class Bill {
 	private BillDetail billDetail;
@@ -9,10 +8,12 @@ public class Bill {
 	private String ID;
 	private String employeeID;
 	private String customerID;
+	private Timestamp sellTimestamp;
 	public static int idNumber;
-	public Bill(String employeeID, String customerID) {
+	public Bill(String employeeID, String customerID, Timestamp e) {
 		this.employeeID = employeeID;
 		this.customerID = customerID;
+		this.setSellTimestamp(e);
 	}
 
 	public BillDetail getBillDetail() {
@@ -63,6 +64,20 @@ public class Bill {
 	 */
 	public void setID(String iD) {
 		ID = iD;
+	}
+
+	/**
+	 * @return the sellTimestamp
+	 */
+	public Timestamp getSellTimestamp() {
+		return sellTimestamp;
+	}
+
+	/**
+	 * @param sellTimestamp the sellTimestamp to set
+	 */
+	public void setSellTimestamp(Timestamp sellTimestamp) {
+		this.sellTimestamp = sellTimestamp;
 	}
 
 }
