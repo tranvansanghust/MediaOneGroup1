@@ -17,7 +17,16 @@ public class ChoicePanel extends JPanel implements ActionListener{
 	private JButton btnDangXuat;
 	private JButton btnThongTin;
 	private JButton btnDonHang;
+	private JButton btnChiPhi;
 	
+	public JButton getBtnChiPhi() {
+		return btnChiPhi;
+	}
+
+	public void setBtnChiPhi(JButton btnChiPhi) {
+		this.btnChiPhi = btnChiPhi;
+	}
+
 	public ChoicePanel() {
 		setLayout(new GridLayout(8, 1, 10, 10));
 		setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED));
@@ -28,11 +37,12 @@ public class ChoicePanel extends JPanel implements ActionListener{
 		btnThongKe   =  createButtons("THỐNG KÊ");
 		btnDangXuat  =  createButtons("ĐĂNG XUẤT");
 		btnThongTin = createButtons("THÔNG TIN TK");
-		
+		btnChiPhi = createButtons("CHI PHÍ");
 		
 		add(btnSanPham);
 		add(btnDonHang);
 		add(btnKhachHang);
+		add(btnChiPhi);
 		add(btnThongKe);
 		add(btnThongTin);
 		add(btnDangXuat);

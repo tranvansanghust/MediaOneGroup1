@@ -96,7 +96,7 @@ CREATE TABLE `book` (
 
 LOCK TABLES `book` WRITE;
 /*!40000 ALTER TABLE `book` DISABLE KEYS */;
-INSERT INTO `book` VALUES ('BK000001','Ảo tưởng','Nguyễn Bá Khải đẹp trai','');
+INSERT INTO `book` VALUES ('BK000001','Kim Đồng','Nhật Bản','');
 /*!40000 ALTER TABLE `book` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -161,6 +161,7 @@ CREATE TABLE `fee` (
   `feeName` varchar(256) NOT NULL,
   `feeValue` double NOT NULL,
   `feeCycle` int(11) NOT NULL,
+  `requestTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`feeName`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -171,6 +172,7 @@ CREATE TABLE `fee` (
 
 LOCK TABLES `fee` WRITE;
 /*!40000 ALTER TABLE `fee` DISABLE KEYS */;
+INSERT INTO `fee` VALUES ('Tiền nhà',10000000,1,'2017-10-23 18:35:52');
 /*!40000 ALTER TABLE `fee` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -222,7 +224,6 @@ CREATE TABLE `moviedisc` (
 
 LOCK TABLES `moviedisc` WRITE;
 /*!40000 ALTER TABLE `moviedisc` DISABLE KEYS */;
-INSERT INTO `moviedisc` VALUES ('MV000001','Khải','Khải','');
 /*!40000 ALTER TABLE `moviedisc` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -249,7 +250,6 @@ CREATE TABLE `musicdisc` (
 
 LOCK TABLES `musicdisc` WRITE;
 /*!40000 ALTER TABLE `musicdisc` DISABLE KEYS */;
-INSERT INTO `musicdisc` VALUES ('MS000001','Nguyễn Bá Khải','Khải','');
 /*!40000 ALTER TABLE `musicdisc` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -264,8 +264,8 @@ CREATE TABLE `paid` (
   `ID` char(9) NOT NULL,
   `feeName` varchar(256) NOT NULL,
   `status` tinyint(1) NOT NULL,
-  `requestTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `paidTime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `requestTime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`ID`),
   KEY `key_phu10` (`feeName`),
   CONSTRAINT `key_phu10` FOREIGN KEY (`feeName`) REFERENCES `fee` (`feeName`)
@@ -306,7 +306,7 @@ CREATE TABLE `product` (
 
 LOCK TABLES `product` WRITE;
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
-INSERT INTO `product` VALUES ('BK000001','Nguyễn Bá Khải tự truyện',1,10,300000,400000,'2017-10-23 08:04:56'),('MS000001','Khải hát',1,1,2,3,'2017-10-23 08:13:27'),('MV000001','Khải',3,1,2,3,'2017-10-23 08:19:45');
+INSERT INTO `product` VALUES ('BK000001','Naruto',1,1,10000,20000,'2017-10-23 18:19:09');
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -319,4 +319,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-10-23 15:50:11
+-- Dump completed on 2017-10-24  1:39:16

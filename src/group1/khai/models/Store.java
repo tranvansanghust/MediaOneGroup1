@@ -1,7 +1,12 @@
 package group1.khai.models;
 
-import java.util.LinkedList;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
+
+import javax.swing.Timer;
 
 import group1.khai.db.DBConnector;
 
@@ -10,12 +15,44 @@ public class Store {
 	private double totalMoney;
 	private List<Fee> costList;
 	private DBConnector dbconnector;
-	
 	public Store(String storeName, double totalMoney, DBConnector dbconnector) {
 		this.storeName = storeName;
 		this.totalMoney = totalMoney;
-		this.costList = new LinkedList<Fee>();
+		this.costList = dbconnector.getAllFees();
 		this.dbconnector = new DBConnector();
+		
+		Date time = new Date();
+		Timestamp now = new Timestamp(time.getYear(), time.getMonth(), time.getDate(), time.getHours(), time.getMinutes(), time.getSeconds(), 0);
+		for(Fee fe:costList) {
+			Timestamp last = fe.getLastRequest();
+			int day=(now.getYear()-last.getYear())*360+(now.getMonth()-last.getMonth()*30+now.getDate()-last.getDate());
+			int count = day/fe.getFeeCycle();
+			for(int i=0;i<count;i++) {
+				dbconnector.savePaid(new Paid(Paid.genID(), fe.getFeeName(), false, fe.getFeeValue(), now, null));
+				fe.setLastRequest(now);
+				dbconnector.updateFee(fe);
+			}
+		}
+		Timer timer = new Timer(86400 ,new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Date time = new Date();
+				Timestamp now = new Timestamp(time.getYear(), time.getMonth(), time.getDate(), time.getHours(), time.getMinutes(), time.getSeconds(), 0);
+				for(Fee fe:costList) {
+					Timestamp last = fe.getLastRequest();
+					int day=(now.getYear()-last.getYear())*360+(now.getMonth()-last.getMonth()*30+now.getDate()-last.getDate());
+					int count = day/fe.getFeeCycle();
+					for(int i=0;i<count;i++) {
+						dbconnector.savePaid(new Paid(Paid.genID(), fe.getFeeName(), false, fe.getFeeValue(), now, null));
+						fe.setLastRequest(now);
+						dbconnector.updateFee(fe);
+					}
+				}
+				
+			}
+		});
+		timer.start();
 	}
 	/**
 	 * add cost to costlist

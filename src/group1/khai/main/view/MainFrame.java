@@ -15,12 +15,15 @@ import group1.khai.book.view.FuncBookPanel;
 import group1.khai.customer.view.FuncCusPanel;
 import group1.khai.customer.view.TableCusPanel;
 import group1.khai.db.DBConnector;
+import group1.khai.fee.view.FuncFeePanel;
+import group1.khai.fee.view.TableFeePanel;
 import group1.khai.models.Bill;
 import group1.khai.models.Book;
 import group1.khai.models.Customer;
 import group1.khai.models.Employee;
 import group1.khai.models.MovieDisc;
 import group1.khai.models.MusicDisc;
+import group1.khai.models.Paid;
 import group1.khai.moviedisc.view.FuncMoviesPanel;
 import group1.khai.musicdisc.view.FuncMusicPanel;
 
@@ -30,10 +33,30 @@ import group1.khai.musicdisc.view.FuncMusicPanel;
 public class MainFrame extends JFrame{
 	private TopInfoPanel topInfoPanel;
 	private ChoicePanel  choicePanel;
-	
+	private TableFeePanel tableFeePanel;
 	private TableCusPanel tableCusPanel;
 	
-	
+	private FuncFeePanel funcfeePanel;
+	public TableFeePanel getTableFeePanel() {
+		return tableFeePanel;
+	}
+
+	public void setTableFeePanel(TableFeePanel tableFeePanel) {
+		this.tableFeePanel = tableFeePanel;
+	}
+
+	public FuncFeePanel getFuncfeePanel() {
+		return funcfeePanel;
+	}
+
+	public void setFuncfeePanel(FuncFeePanel funcfeePanel) {
+		this.funcfeePanel = funcfeePanel;
+	}
+
+	public void setFuncMoviesPanel(FuncMoviesPanel funcMoviesPanel) {
+		this.funcMoviesPanel = funcMoviesPanel;
+	}
+
 	private FuncCusPanel funcCusPanel;
 	private FuncBookPanel funcBookPanel;
 	private FuncMoviesPanel funcMoviesPanel;
@@ -66,7 +89,9 @@ public class MainFrame extends JFrame{
 		/*			PANELS OF CUSTOMERS		*/
 		tableCusPanel	= new TableCusPanel();
 		funcCusPanel 	= new FuncCusPanel();
-		
+		/*			PANELS OF CUSTOMERS		*/
+		tableFeePanel = new TableFeePanel();
+		funcfeePanel = new FuncFeePanel();
 		/*			PANELS OF PRODUCTS		*/
 		tabbedProduct	 = new TabbedProduct();
 		
@@ -109,6 +134,7 @@ public class MainFrame extends JFrame{
 					out.writeInt(Employee.idNumber);
 					out.writeInt(Customer.idNumber);
 					out.writeInt(Bill.idNumber);
+					out.writeInt(Paid.idNumber);
 					out.flush();
 					out.close();
 				} catch (FileNotFoundException e1) {

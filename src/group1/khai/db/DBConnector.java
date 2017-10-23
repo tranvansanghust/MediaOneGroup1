@@ -6,14 +6,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
 import group1.khai.models.Book;
 import group1.khai.models.Customer;
 import group1.khai.models.Employee;
+import group1.khai.models.Fee;
 import group1.khai.models.MovieDisc;
 import group1.khai.models.MusicDisc;
+import group1.khai.models.Paid;
 import group1.khai.models.Product;
 
 public class DBConnector {
@@ -97,6 +100,42 @@ public class DBConnector {
 			query = "insert into MusicDisc(ID,authorName,singerName,dicstype) values ('" + book.getID() + "','"
 					+ book.getAuthorName() + "','" + book.getSingerName() + "','" + book.getDicsType() + "');";
 			stm.executeUpdate(query);
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	public boolean saveFee(Fee fee) {
+		try {
+			String query;
+
+			query = "insert into Fee(feeName,feeValue,feeCycle,requestTime)" + "values ('" + fee.getFeeName() + "',"
+					+ fee.getFeeValue() + "," + fee.getFeeCycle() + ",'" + fee.getLastRequest() + "');";
+			stm.executeUpdate(query);
+
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	public boolean savePaid(Paid paid) {
+		try {
+			String query;
+			if (paid.getPaidTime() != null) {
+				query = "insert into Paid(ID,feeName,status,requestTime,paidTime) values ('" + paid.getID() + "','"
+						+ paid.getFeeName() + "'," + paid.isPaid() + ",'" + paid.getRequestTime() + "','"
+						+ paid.getPaidTime() + "');";
+				stm.executeUpdate(query);
+			}
+			else {
+				query = "insert into Paid(ID,feeName,status,requestTime) values ('" + paid.getID() + "','"
+						+ paid.getFeeName() + "'," + paid.isPaid() + ",'" + paid.getRequestTime()  + "');";
+				stm.executeUpdate(query);
+			}
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -189,6 +228,43 @@ public class DBConnector {
 			String dicsType = rs.getString("dicsType");
 			return new MusicDisc(iD, productName, productType, productQuota, buyPrice, sellPrice, buyTimestamp, author,
 					singer, dicsType);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public Fee findFee(String feeName) {
+		try {
+			String query = "select * from Fee where feeName='" + feeName + "';";
+			rs = stm.executeQuery(query);
+			if (!rs.next())
+				return null;
+			String feename = rs.getString("feeName");
+			double feevalue = rs.getDouble("feevalue");
+			int feeCycle = rs.getInt("feeCycle");
+			Timestamp time = rs.getTimestamp("requestTime");
+			return new Fee(feename, feevalue, feeCycle, time);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public Paid findPaid(String id) {
+		try {
+			String query = "select * from Paid,Fee where paid.feeName=fee.feeName and ID='" + id + "';";
+			rs = stm.executeQuery(query);
+			if (!rs.next())
+				return null;
+			String feename = rs.getString("feeName");
+			double feevalue = rs.getDouble("feeValue");
+			boolean status = rs.getBoolean("status");
+			Timestamp request = rs.getTimestamp("requestTime");
+			Timestamp paidti = rs.getTimestamp("paidTime");
+			return new Paid(id, feename, status, feevalue, request, paidti);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -289,6 +365,43 @@ public class DBConnector {
 		return result;
 	}
 
+	public List<Fee> getAllFees() {
+		List<Fee> result = new LinkedList<Fee>();
+		try {
+			String query = "select * from Fee";
+			rs = stm.executeQuery(query);
+			while (rs.next()) {
+				String feeName = rs.getString("feeName");
+				double feeValue = rs.getDouble("feevalue");
+				int feeCycle = rs.getInt("feeCycle");
+				Timestamp time = rs.getTimestamp("requestTime");
+				result.add(new Fee(feeName, feeValue, feeCycle, time));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	public List<Paid> getAllUnPaid() {
+		List<Paid> result = new LinkedList<Paid>();
+		try {
+			String query = "select * from Paid,Fee where paid.feeName=fee.feeName and status=false";
+			rs = stm.executeQuery(query);
+			while (rs.next()) {
+				String id = rs.getString("ID");
+				String feeName = rs.getString("feeName");
+				double feeValue = rs.getDouble("feevalue");
+				Timestamp requestTime = rs.getTimestamp("requestTime");
+				Timestamp paidTime = rs.getTimestamp("paidTime");
+				result.add(new Paid(id, feeName, false, feeValue, requestTime, paidTime));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
 	public void deleteBook(String id) {
 		try {
 			String query = "delete from Book where id='" + id + "';";
@@ -321,43 +434,82 @@ public class DBConnector {
 			e.printStackTrace();
 		}
 	}
+
+	public void deleteFee(String feeName) {
+		try {
+			String query = "delete from Paid where feeName='" + feeName + "';";
+			stm.executeUpdate(query);
+			query = "delete from Fee where feeName='" + feeName + "';";
+			stm.executeUpdate(query);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
 	public void updateBook(Book bk) {
 		try {
-			String query = "update Product set productName='" + bk.getProductName() + "',"
-					+ " productQuota='"+bk.getProductQuota()+"',"
-					+"  buyPrice="+bk.getBuyPrice()+","
-					+" sellPrice="+bk.getSellPrice()+" where id='"+bk.getID()+"';";
+			String query = "update Product set productName='" + bk.getProductName() + "'," + " productQuota='"
+					+ bk.getProductQuota() + "'," + "  buyPrice=" + bk.getBuyPrice() + "," + " sellPrice="
+					+ bk.getSellPrice() + "," + "buyTimestamp='" + bk.getBuyTimestamp() + "'" + " where id='"
+					+ bk.getID() + "';";
 			stm.executeUpdate(query);
-			query = "update  Book "+"set publishingCompany='"+bk.getPublishingCompany()
-			+"',authorName='"+bk.getAuthorName()+"'"+" where id='" + bk.getID() + "';";
+			query = "update  Book " + "set publishingCompany='" + bk.getPublishingCompany() + "',authorName='"
+					+ bk.getAuthorName() + "'" + " where id='" + bk.getID() + "';";
 			stm.executeUpdate(query);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
+
 	public void updateMovieDisc(MovieDisc bk) {
 		try {
-			String query = "update Product set productName='" + bk.getProductName() + "',"
-					+ " productQuota='"+bk.getProductQuota()+"',"
-					+"  buyPrice="+bk.getBuyPrice()+","
-					+" sellPrice="+bk.getSellPrice()+" where id='"+bk.getID()+"';";
+			String query = "update Product set productName='" + bk.getProductName() + "'," + " productQuota='"
+					+ bk.getProductQuota() + "'," + "  buyPrice=" + bk.getBuyPrice() + "," + " sellPrice="
+					+ bk.getSellPrice() + "," + "buyTimestamp='" + bk.getBuyTimestamp() + "'" + " where id='"
+					+ bk.getID() + "';";
 			stm.executeUpdate(query);
-			query = "update  MovieDisc "+"set DirectorName='"+bk.getDirectorName()
-			+"',actorName='"+bk.getActorName()+"'"+" where id='" + bk.getID() + "';";
+			query = "update  MovieDisc " + "set DirectorName='" + bk.getDirectorName() + "',actorName='"
+					+ bk.getActorName() + "'" + " where id='" + bk.getID() + "';";
 			stm.executeUpdate(query);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
+
 	public void updateMusicDisc(MusicDisc bk) {
 		try {
-			String query = "update Product set productName='" + bk.getProductName() + "',"
-					+ " productQuota='"+bk.getProductQuota()+"',"
-					+"  buyPrice="+bk.getBuyPrice()+","
-					+" sellPrice="+bk.getSellPrice()+" where id='"+bk.getID()+"';";
+			String query = "update Product set productName='" + bk.getProductName() + "'," + " productQuota='"
+					+ bk.getProductQuota() + "'," + "  buyPrice=" + bk.getBuyPrice() + "," + " sellPrice="
+					+ bk.getSellPrice() + "," + "buyTimestamp='" + bk.getBuyTimestamp() + "'" + " where id='"
+					+ bk.getID() + "';";
 			stm.executeUpdate(query);
-			query = "update  MusicDisc "+"set authorName='"+bk.getAuthorName()
-			+"',singerName='"+bk.getSingerName()+"'"+" where id='" + bk.getID() + "';";
+			query = "update  MusicDisc " + "set authorName='" + bk.getAuthorName() + "',singerName='"
+					+ bk.getSingerName() + "'" + " where id='" + bk.getID() + "';";
+			stm.executeUpdate(query);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void updateFee(Fee bk) {
+		try {
+			String query = "update Fee set feeName='" + bk.getFeeName() + "'," + " feeValue=" + bk.getFeeValue() + ","
+					+ "  feeCycle=" + bk.getFeeCycle() + "," + "requestTime='" + bk.getLastRequest() + "'"
+					+ " where feeName='" + bk.getFeeName() + "';";
+			stm.executeUpdate(query);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void paidPaid(Paid paid) {
+		try {
+			Date time = new Date();
+			Timestamp now = new Timestamp(time.getYear(), time.getMonth(), time.getDate(), time.getHours(),
+					time.getMinutes(), time.getSeconds(), 0);
+			String query = "update Paid set status=true " + ",requestTime='" + paid.getRequestTime() + "',"
+					+ " paidTime='" + now + "'" + " where id='" + paid.getID() + "';";
 			stm.executeUpdate(query);
 		} catch (SQLException e) {
 			e.printStackTrace();

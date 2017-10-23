@@ -1,6 +1,8 @@
 eclipse.preferences.version=1
 encoding//src/group1/khai/book/controllers/DeleteBookController.java=UTF-8
 encoding//src/group1/khai/book/controllers/EditBookController.java=UTF-8
+encoding//src/group1/khai/fee/controllers/DeleteFeeController.java=UTF-8
+encoding//src/group1/khai/fee/controllers/EditFeeController.java=UTF-8
 encoding//src/group1/khai/moviedisc/controllers/DeleteMoviesController.java=UTF-8
 encoding//src/group1/khai/moviedisc/controllers/EditMoviesController.java=UTF-8
 encoding//src/group1/khai/musicdisc/controllers/DeleteMusicController.java=UTF-8

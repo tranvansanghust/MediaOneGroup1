@@ -1,4 +1,4 @@
-package group1.khai.book.view;
+package group1.khai.fee.view;
 
 import java.awt.BorderLayout;
 import java.text.DecimalFormat;
@@ -11,21 +11,23 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
-import group1.khai.models.Book;
+import group1.khai.models.Fee;
 
 
 
 @SuppressWarnings("serial")
-public class TableBookPanel extends JPanel{
+public class TableFeePanel extends JPanel{
 	private JTable table;
 	private JScrollPane scroll;
 
-	private String[] columns = { "ID", "Tên Sách", "Nhà xuất bản", "Tác giả", "Số lượng tồn kho", "giá mua","giá bán","ngày nhập hàng cuối" };
+	private String[] columns =   {"Tên chi phí", "Giá trị", "Chu kỳ","Lần trả gần nhất" };
 
-	public TableBookPanel() {
+	public TableFeePanel() {
 		setLayout(new BorderLayout(10, 0));
 		// setBorder(BorderFactory.createEtcheBorder(EtchedBorder.RAISED));
 		// setBorder(BorderFactory.createEtchedBorder());
+		JPanel panel = new JPanel();
+		panel.setLayout(new BorderLayout());
 		
 		
 		
@@ -60,20 +62,17 @@ public class TableBookPanel extends JPanel{
 
 	}
 	
-	public void updateTable(List<Book> list){
+	public void updateTable(List<Fee> list){
 		DecimalFormat format = (DecimalFormat) DecimalFormat.getCurrencyInstance(new Locale("vi","VN"));
 		String[][] data =  new String[list.size()][columns.length];
 		
 		for(int i=0;i<list.size();i++){
-			Book s = list.get(i);
-			data[i][0] = s.getID();
-			data[i][1] = s.getProductName();
-			data[i][2] = s.getPublishingCompany();
-			data[i][3] = s.getAuthorName();
-			data[i][4] = Long.toString(s.getProductQuota());
-			data[i][5] = format.format(s.getBuyPrice()).toString();
-			data[i][6] = format.format(s.getSellPrice()).toString();
-			data[i][7] = s.getBuyTimestamp().toString();
+			Fee s = list.get(i);
+			data[i][0] = s.getFeeName();
+			data[i][1] = format.format(s.getFeeValue()).toString();
+			data[i][2] = Integer.toString(s.getFeeCycle());
+			data[i][3] = s.getLastRequest().toString();
+		
 		}
 		
 		DefaultTableModel tableModel = new DefaultTableModel(data, columns) {

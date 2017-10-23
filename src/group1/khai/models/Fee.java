@@ -1,14 +1,29 @@
 package group1.khai.models;
 
+import java.sql.Timestamp;
+
 public class Fee {
 	private String feeName;
 	private double feeValue;
 	private int feeCycle;
+	private Timestamp lastRequest;
 
-	public Fee(String costName, double costValue, int costCycle) {
-		this.feeName = costName;
-		this.feeValue = costValue;
-		this.feeCycle = costCycle;
+	
+
+	public Fee(String feeName, double feeValue, int feeCycle, Timestamp lastRequest) {
+		super();
+		this.feeName = feeName;
+		this.feeValue = feeValue;
+		this.feeCycle = feeCycle;
+		this.lastRequest = lastRequest;
+	}
+
+	public Timestamp getLastRequest() {
+		return lastRequest;
+	}
+
+	public void setLastRequest(Timestamp lastRequest) {
+		this.lastRequest = lastRequest;
 	}
 
 	public String getFeeName() {

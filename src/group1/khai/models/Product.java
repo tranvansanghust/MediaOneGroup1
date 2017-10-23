@@ -48,16 +48,13 @@ public class Product {
 	}
 
 	/**
-	 * fullName must be < 256 character and not have number
+	 * fullName must be < 256 character 
 	 * 
 	 * @param fullName
 	 *            is a String
 	 */
 	public void setProductName(String productName) {
-		for (int i = 0; i < productName.length(); i++) {
-			if (Character.isDigit(productName.charAt(i)))
-				return;
-		}
+		
 		if (productName.length() < 256)
 			this.productName = productName;
 	}
