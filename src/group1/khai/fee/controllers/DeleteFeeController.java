@@ -32,7 +32,7 @@ public class DeleteFeeController {
 					int a =JOptionPane.showConfirmDialog(tableFeePanel, "Bạn muốn xóa chi phí '"+ten+"'?", "Cảnh báo", JOptionPane.YES_NO_OPTION);
 					if(a==JOptionPane.YES_OPTION) {
 						db.deleteFee(ten);
-						List<Fee> list = db.getAllFees();
+						List<Fee> list = db.getAllFees(tableFeePanel.getCurrentPage());
 						store.setCostList(list);
 						tableFeePanel.updateTable(list);
 						JOptionPane.showMessageDialog(null, "Xóa sách thành công");

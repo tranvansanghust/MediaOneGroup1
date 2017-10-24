@@ -125,7 +125,7 @@ public class AddBookView extends JDialog  implements ActionListener {
 					mainFrame.getTopInfoPanel().getLbTotalMoney().setText(format.format(store.getTotalMoney()).toString());
 					dispose();
 					
-					List<Book> list = db.getAllBooks(0);
+					List<Book> list = db.getAllBooks(tableBookPanel.getCurrentPage());
 					tableBookPanel.updateTable(list);
 					JOptionPane.showMessageDialog(null, "Thêm sách thành công");
 					

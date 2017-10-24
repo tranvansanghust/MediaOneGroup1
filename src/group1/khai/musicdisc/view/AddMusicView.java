@@ -126,7 +126,7 @@ public class AddMusicView extends JDialog  implements ActionListener{
 					mainFrame.getTopInfoPanel().getLbTotalMoney().setText(format.format(store.getTotalMoney()).toString());
 					dispose();
 					
-					List<MusicDisc> list = db.getAllMusicDiscs(0);
+					List<MusicDisc> list = db.getAllMusicDiscs(tableMusicPanel.getCurrentPage());
 					tableMusicPanel.updateTable(list);
 					JOptionPane.showMessageDialog(null, "Thêm đĩa thành công");
 					

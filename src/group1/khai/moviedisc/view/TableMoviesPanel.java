@@ -5,6 +5,7 @@ import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Locale;
 
+import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -17,15 +18,14 @@ import group1.khai.models.MovieDisc;
 public class TableMoviesPanel extends JPanel{
 	private JTable table;
 	private JScrollPane scroll;
-
+	private int currentPage;
+	private JButton btNext,btBack;
 	private String[] columns = { "ID", "Tên đĩa phim", "Đạo diễn", "Diễn viên", "Số lượng tồn kho", "giá mua","giá bán","ngày nhập hàng cuối" };
 
 	public TableMoviesPanel() {
 		setLayout(new BorderLayout(10, 0));
 		// setBorder(BorderFactory.createEtcheBorder(EtchedBorder.RAISED));
 		// setBorder(BorderFactory.createEtchedBorder());
-		JPanel panel = new JPanel();
-		panel.setLayout(new BorderLayout());
 		
 		
 		
@@ -45,6 +45,14 @@ public class TableMoviesPanel extends JPanel{
 		
 		add(scroll, BorderLayout.CENTER);
 		
+		//bt
+		btNext = new JButton("Trang sau");
+		btBack = new JButton("Trang trước");
+		JPanel panel = new JPanel(new BorderLayout());
+		panel.add(btNext,BorderLayout.EAST);
+		panel.add(btBack,BorderLayout.WEST);
+		
+		add(panel,BorderLayout.SOUTH);
 	}
 
 	private void loadData(JTable table) {
@@ -112,5 +120,29 @@ public class TableMoviesPanel extends JPanel{
 
 	public void setColumns(String[] columns) {
 		this.columns = columns;
+	}
+
+	public JButton getBtNext() {
+		return btNext;
+	}
+
+	public int getCurrentPage() {
+		return currentPage;
+	}
+
+	public void setCurrentPage(int currentPage) {
+		this.currentPage = currentPage;
+	}
+
+	public void setBtNext(JButton btNext) {
+		this.btNext = btNext;
+	}
+
+	public JButton getBtBack() {
+		return btBack;
+	}
+
+	public void setBtBack(JButton btBack) {
+		this.btBack = btBack;
 	}
 }

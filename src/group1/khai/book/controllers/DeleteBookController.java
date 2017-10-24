@@ -31,7 +31,7 @@ public class DeleteBookController {
 					int a =JOptionPane.showConfirmDialog(tableBookPanel, "Bạn muốn xóa sách mã '"+id+"'?", "Cảnh báo", JOptionPane.YES_NO_OPTION);
 					if(a==JOptionPane.YES_OPTION) {
 						db.deleteBook(id);
-						List<Book> list = db.getAllBooks(0);
+						List<Book> list = db.getAllBooks(tableBookPanel.getCurrentPage());
 						tableBookPanel.updateTable(list);
 						JOptionPane.showMessageDialog(null, "Xóa sách thành công");
 					}

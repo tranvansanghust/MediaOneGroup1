@@ -29,7 +29,7 @@ public class FuncFeePanel extends JPanel implements ActionListener{
 	
 	public FuncFeePanel() {
 	
-		setLayout(new BorderLayout(10,30));
+		setLayout(new BorderLayout(10,10));
 		setBorder(BorderFactory.createTitledBorder("Chức năng"));
 		add(createSearchPanel(),BorderLayout.NORTH);
 		add(createActionPanel(),BorderLayout.CENTER);

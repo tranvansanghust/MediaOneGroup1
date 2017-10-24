@@ -8,11 +8,13 @@ import java.io.IOException;
 import group1.khai.book.controllers.AddBookController;
 import group1.khai.book.controllers.DeleteBookController;
 import group1.khai.book.controllers.EditBookController;
+import group1.khai.book.controllers.TableBookController;
 import group1.khai.db.DBConnector;
 import group1.khai.fee.controllers.AddFeeController;
 import group1.khai.fee.controllers.DeleteFeeController;
 import group1.khai.fee.controllers.EditFeeController;
 import group1.khai.fee.controllers.PaidFeeController;
+import group1.khai.fee.controllers.TableFeeController;
 import group1.khai.main.controllers.ChangeTableController;
 import group1.khai.main.view.MainFrame;
 import group1.khai.models.Bill;
@@ -26,9 +28,11 @@ import group1.khai.models.Store;
 import group1.khai.moviedisc.controllers.AddMoviesController;
 import group1.khai.moviedisc.controllers.DeleteMoviesController;
 import group1.khai.moviedisc.controllers.EditMoviesController;
+import group1.khai.moviedisc.controllers.TableMovieDiscController;
 import group1.khai.musicdisc.controllers.AddMusicController;
 import group1.khai.musicdisc.controllers.DeleteMusicController;
 import group1.khai.musicdisc.controllers.EditMusicController;
+import group1.khai.musicdisc.controllers.TableMusicDiscController;
 
 public class App {
 	public static void main(String[] args) {
@@ -55,6 +59,11 @@ public class App {
 		EditFeeController editFee = new EditFeeController(a, db);
 		
 		PaidFeeController paidCon = new PaidFeeController(a, db,media);
+		
+		TableBookController bookCon = new TableBookController(a, db);
+		TableMovieDiscController mcon = new TableMovieDiscController(a, db);
+		TableMusicDiscController mucon = new TableMusicDiscController(a, db);
+		TableFeeController feecon = new TableFeeController(a, db);
 	}
 	public static void initQuery(Store store,DBConnector db) {
 		try {

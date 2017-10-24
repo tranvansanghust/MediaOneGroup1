@@ -1,10 +1,13 @@
 package group1.khai.book.view;
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Locale;
 
+import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -16,12 +19,12 @@ import group1.khai.models.Book;
 
 
 @SuppressWarnings("serial")
-public class TableBookPanel extends JPanel{
+public class TableBookPanel extends JPanel {
 	private JTable table;
 	private JScrollPane scroll;
-
+	private JButton btNext,btBack;
 	private String[] columns = { "ID", "Tên Sách", "Nhà xuất bản", "Tác giả", "Số lượng tồn kho", "giá mua","giá bán","ngày nhập hàng cuối" };
-
+	private int currentPage;
 	public TableBookPanel() {
 		setLayout(new BorderLayout(10, 0));
 		// setBorder(BorderFactory.createEtcheBorder(EtchedBorder.RAISED));
@@ -44,6 +47,15 @@ public class TableBookPanel extends JPanel{
 		
 		add(scroll, BorderLayout.CENTER);
 		
+		//btn 
+		
+		btNext = new JButton("Trang sau");
+		btBack = new JButton("Trang trước");
+		JPanel panel = new JPanel(new BorderLayout());
+		panel.add(btNext,BorderLayout.EAST);
+		panel.add(btBack,BorderLayout.WEST);
+		
+		add(panel,BorderLayout.SOUTH);
 	}
 
 	private void loadData(JTable table) {
@@ -109,7 +121,34 @@ public class TableBookPanel extends JPanel{
 		return columns;
 	}
 
+
 	public void setColumns(String[] columns) {
 		this.columns = columns;
 	}
+
+	public int getCurrentPage() {
+		return currentPage;
+	}
+
+	public void setCurrentPage(int currentPage) {
+		this.currentPage = currentPage;
+	}
+
+	public JButton getBtNext() {
+		return btNext;
+	}
+
+	public void setBtNext(JButton btNext) {
+		this.btNext = btNext;
+	}
+
+	public JButton getBtBack() {
+		return btBack;
+	}
+
+	public void setBtBack(JButton btBack) {
+		this.btBack = btBack;
+	}
+
+	
 }

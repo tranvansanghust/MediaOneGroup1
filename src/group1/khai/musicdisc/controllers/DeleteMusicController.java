@@ -31,7 +31,7 @@ public class DeleteMusicController {
 					int a=JOptionPane.showConfirmDialog(tableMusicPanel, "Bạn muốn xóa dĩa nhạc mã '"+id+"'?", "Cảnh báo", JOptionPane.YES_NO_OPTION);
 					if(JOptionPane.YES_OPTION==a) {
 						db.deleteMusicDisc(id);
-						List<MusicDisc> list = db.getAllMusicDiscs(0);
+						List<MusicDisc> list = db.getAllMusicDiscs(tableMusicPanel.getCurrentPage());
 						tableMusicPanel.updateTable(list);
 						JOptionPane.showMessageDialog(null, "Xóa đĩa nhạc thành công");
 					}

@@ -79,7 +79,7 @@ public class MainFrame extends JFrame{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(1200,600);
 		setResizable(false);
-		setLayout(new BorderLayout());
+		setLayout(new BorderLayout(0,0));
 		setLocationRelativeTo(null);
 		
 		/* 			NORTH MAINFRAME			*/

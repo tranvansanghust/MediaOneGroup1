@@ -114,7 +114,7 @@ public class EditFeeView extends JDialog  implements ActionListener{
 				fee.setFeeCycle(Integer.parseInt(tfChuKy.getText()));
 				db.updateFee(fee);
 				this.dispose();
-				List<Fee> list = db.getAllFees();
+				List<Fee> list = db.getAllFees(tableFeePanel.getCurrentPage());
 				tableFeePanel.updateTable(list);
 			}
 		}

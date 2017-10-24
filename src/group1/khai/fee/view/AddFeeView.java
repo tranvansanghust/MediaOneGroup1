@@ -108,7 +108,7 @@ public class AddFeeView extends JDialog  implements ActionListener {
 					
 					dispose();
 					
-					List<Fee> list = db.getAllFees();
+					List<Fee> list = db.getAllFees(tablefeePanel.getCurrentPage());
 					tablefeePanel.updateTable(list);
 					store.setCostList(list);
 					store.setTotalMoney(store.getTotalMoney()-fee.getFeeValue());

@@ -29,7 +29,7 @@ public class FuncBookPanel extends JPanel implements ActionListener{
 	
 	public FuncBookPanel() {
 	
-		setLayout(new BorderLayout(10,4));
+		setLayout(new BorderLayout(10,10));
 		setBorder(BorderFactory.createTitledBorder("Chức năng"));
 		add(createSearchPanel(),BorderLayout.NORTH);
 		add(createActionPanel(),BorderLayout.CENTER);
@@ -43,10 +43,10 @@ public class FuncBookPanel extends JPanel implements ActionListener{
 		tfSearch = new JTextField(30);
 		
 		JPanel panel = new JPanel();
-		panel.setLayout(new BorderLayout(20,0));
+		panel.setLayout(new BorderLayout(10,0));
 		
 		JPanel panelBtn = new JPanel();
-		panelBtn.setLayout(new BorderLayout(20,0));
+		panelBtn.setLayout(new BorderLayout(10,0));
 		
 		panelBtn.add(new JLabel("Tìm kiếm theo:"),BorderLayout.WEST);
 		panelBtn.add(cbType,BorderLayout.CENTER);
@@ -60,7 +60,7 @@ public class FuncBookPanel extends JPanel implements ActionListener{
 	
 	private JPanel createActionPanel() {
 		JPanel panel = new JPanel();
-		panel.setLayout(new GridLayout(1, 4, 10, 10));
+		panel.setLayout(new GridLayout(1, 4, 10, 0));
 		
 		btnXemTatCa = createButtons("XEM TẤT CẢ");
 		btnThem     = createButtons("THÊM");

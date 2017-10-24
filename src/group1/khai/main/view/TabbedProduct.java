@@ -1,5 +1,7 @@
 package group1.khai.main.view;
 
+import java.awt.Dimension;
+
 import javax.swing.JTabbedPane;
 
 import group1.khai.book.view.TableBookPanel;
@@ -13,7 +15,7 @@ public class TabbedProduct extends JTabbedPane {
 	private TableMusicPanel tableMusicPanel;
 	
 	public TabbedProduct() {
-		
+		setPreferredSize(new Dimension(500, 440));
 		tableBookPanel = new TableBookPanel();
 		tableMoviesPanel = new TableMoviesPanel();
 		tableMusicPanel = new TableMusicPanel();

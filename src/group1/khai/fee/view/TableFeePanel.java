@@ -5,6 +5,7 @@ import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Locale;
 
+import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -19,15 +20,14 @@ import group1.khai.models.Fee;
 public class TableFeePanel extends JPanel{
 	private JTable table;
 	private JScrollPane scroll;
-
+	private JButton btNext,btBack;
+	private int currentPage;
 	private String[] columns =   {"Tên chi phí", "Giá trị", "Chu kỳ","Lần trả gần nhất" };
 
 	public TableFeePanel() {
 		setLayout(new BorderLayout(10, 0));
 		// setBorder(BorderFactory.createEtcheBorder(EtchedBorder.RAISED));
 		// setBorder(BorderFactory.createEtchedBorder());
-		JPanel panel = new JPanel();
-		panel.setLayout(new BorderLayout());
 		
 		
 		
@@ -45,6 +45,14 @@ public class TableFeePanel extends JPanel{
 		scroll.setViewportView(table);
 		
 		add(scroll, BorderLayout.CENTER);
+		//bt
+		btNext = new JButton("Trang sau");
+		btBack = new JButton("Trang trước");
+		JPanel panel = new JPanel(new BorderLayout());
+		panel.add(btNext,BorderLayout.EAST);
+		panel.add(btBack,BorderLayout.WEST);
+		
+		add(panel,BorderLayout.SOUTH);
 		
 	}
 
@@ -88,6 +96,14 @@ public class TableFeePanel extends JPanel{
 		
 	}
 
+	public int getCurrentPage() {
+		return currentPage;
+	}
+
+	public void setCurrentPage(int currentPage) {
+		this.currentPage = currentPage;
+	}
+
 	public JTable getTable() {
 		return table;
 	}
@@ -111,4 +127,21 @@ public class TableFeePanel extends JPanel{
 	public void setColumns(String[] columns) {
 		this.columns = columns;
 	}
+
+	public JButton getBtNext() {
+		return btNext;
+	}
+
+	public void setBtNext(JButton btNext) {
+		this.btNext = btNext;
+	}
+
+	public JButton getBtBack() {
+		return btBack;
+	}
+
+	public void setBtBack(JButton btBack) {
+		this.btBack = btBack;
+	}
+	
 }

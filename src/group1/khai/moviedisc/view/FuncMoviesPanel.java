@@ -29,7 +29,7 @@ public class FuncMoviesPanel extends JPanel implements ActionListener{
 	
 	public FuncMoviesPanel() {
 		//this.tablePanel=tablePanel;
-		setLayout(new BorderLayout(10,4));
+		setLayout(new BorderLayout(10,10));
 		setBorder(BorderFactory.createTitledBorder("Chức năng"));
 		add(createSearchPanel(),BorderLayout.NORTH);
 		add(createActionPanel(),BorderLayout.CENTER);

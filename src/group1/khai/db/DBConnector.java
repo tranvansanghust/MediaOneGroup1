@@ -368,10 +368,11 @@ public class DBConnector {
 		return result;
 	}
 
-	public List<Fee> getAllFees() {
+	public List<Fee> getAllFees(int pageindex) {
 		List<Fee> result = new LinkedList<Fee>();
 		try {
-			String query = "select * from Fee ; ;";
+			String query = "select * from Fee limit " + (pageindex * 50) + ","
+					+ ((pageindex + 1) * 50) + ";";
 			rs = stm.executeQuery(query);
 			while (rs.next()) {
 				String feeName = rs.getString("feeName");
@@ -385,11 +386,28 @@ public class DBConnector {
 		}
 		return result;
 	}
-
-	public List<Paid> getAllUnPaid() {
+	public List<Fee> getAllFees() {
+		List<Fee> result = new LinkedList<Fee>();
+		try {
+			String query = "select * from Fee;";
+			rs = stm.executeQuery(query);
+			while (rs.next()) {
+				String feeName = rs.getString("feeName");
+				double feeValue = rs.getDouble("feevalue");
+				int feeCycle = rs.getInt("feeCycle");
+				Timestamp time = rs.getTimestamp("requestTime");
+				result.add(new Fee(feeName, feeValue, feeCycle, time));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	public List<Paid> getAllUnPaid(int pageindex) {
 		List<Paid> result = new LinkedList<Paid>();
 		try {
-			String query = "select * from Paid,Fee where paid.feeName=fee.feeName and status=false;";
+			String query = "select * from Paid,Fee where paid.feeName=fee.feeName and status=false limit " + (pageindex * 50) + ","
+					+ ((pageindex + 1) * 50) + ";";
 			rs = stm.executeQuery(query);
 			while (rs.next()) {
 				String id = rs.getString("ID");
@@ -538,5 +556,7 @@ public class DBConnector {
 		}
 		return 0;
 	}
+
+	
 
 }
