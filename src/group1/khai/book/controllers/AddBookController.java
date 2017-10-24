@@ -9,12 +9,13 @@ import group1.khai.book.view.AddBookView;
 import group1.khai.book.view.TableBookPanel;
 import group1.khai.db.DBConnector;
 import group1.khai.main.view.MainFrame;
+import group1.khai.models.Store;
 
 public class AddBookController {
 	private JButton btnThem;
 	private TableBookPanel tableBookPanel;
 	
-	public AddBookController(MainFrame mainFrame,DBConnector db) {
+	public AddBookController(MainFrame mainFrame,DBConnector db,Store store) {
 		btnThem = mainFrame.getFuncBookPanel().getBtnThem();
 		tableBookPanel = mainFrame.getTabbedProduct().getTableBookPanel();
 		
@@ -22,7 +23,7 @@ public class AddBookController {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new AddBookView(db, tableBookPanel);
+				new AddBookView(db,mainFrame, tableBookPanel, store);
 				
 			}
 		});

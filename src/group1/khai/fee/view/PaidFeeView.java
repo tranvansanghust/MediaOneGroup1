@@ -16,6 +16,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
 import group1.khai.db.DBConnector;
+import group1.khai.main.view.MainFrame;
 import group1.khai.models.Fee;
 import group1.khai.models.Paid;
 import group1.khai.models.Store;
@@ -27,11 +28,13 @@ public class PaidFeeView extends JDialog implements ActionListener{
 	private TableFeePanel tablefeePanel;
 	private JTable table;
 	private JScrollPane scroll;
+	private MainFrame mainFrame;
 	private String[] columns = { "ID", "Tên chi phí", "Giá trị", "Ngày yêu cầu", "Ngày thanh toán", "Trạng thái" };
-	public PaidFeeView(DBConnector db, TableFeePanel tableFeePanel,Store store) {
+	public PaidFeeView(DBConnector db, MainFrame main, TableFeePanel tableFeePanel,Store store) {
 		this.db = db;
 		this.store=store;
 		this.tablefeePanel=tableFeePanel;
+		this.mainFrame=main;
 		setSize(1000,600);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
@@ -112,6 +115,8 @@ public class PaidFeeView extends JDialog implements ActionListener{
 				Paid paid = db.findPaid(id);
 				db.paidPaid(paid);
 				store.setTotalMoney(store.getTotalMoney()-paid.getFeeValue());
+				DecimalFormat format = (DecimalFormat) DecimalFormat.getCurrencyInstance(new Locale("vi","VN"));
+				mainFrame.getTopInfoPanel().getLbTotalMoney().setText(format.format(store.getTotalMoney()).toString());
 				List<Paid> list = db.getAllUnPaid();
 				this.updateTable(list);
 				JOptionPane.showMessageDialog(null, "Thanh toán thành công");

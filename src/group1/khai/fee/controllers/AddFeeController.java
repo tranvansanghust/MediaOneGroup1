@@ -23,7 +23,7 @@ public class AddFeeController {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new AddFeeView(db, tableFeePanel,store);
+				new AddFeeView(db,mainFrame, tableFeePanel,store);
 				
 			}
 		});

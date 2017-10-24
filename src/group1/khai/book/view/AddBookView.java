@@ -5,9 +5,11 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Timestamp;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -18,8 +20,10 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import group1.khai.db.DBConnector;
+import group1.khai.main.view.MainFrame;
 import group1.khai.models.Book;
 import group1.khai.models.Product;
+import group1.khai.models.Store;
 
 
 
@@ -33,9 +37,13 @@ public class AddBookView extends JDialog  implements ActionListener {
 	private JButton btnThem, btnHuy;
 	private DBConnector db;
 	private TableBookPanel tableBookPanel;
-	
-	public AddBookView(DBConnector db, TableBookPanel tableBookPanel) {
+	private Store store;
+	private MainFrame mainFrame;
+	public AddBookView(DBConnector db, MainFrame main, TableBookPanel tableBookPanel
+			,Store store) {
+		this.store=store;
 		this.db = db;
+		this.mainFrame=main;
 		this.tableBookPanel=tableBookPanel;
 		setResizable(false);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -94,7 +102,7 @@ public class AddBookView extends JDialog  implements ActionListener {
 			dispose();
 		}
 		if (e.getSource() == btnThem) {
-			SimpleDateFormat format = new SimpleDateFormat("YYYY/MM/DD/hh/mm/ss");
+			DecimalFormat format = (DecimalFormat) DecimalFormat.getCurrencyInstance(new Locale("vi","VN"));
 			
 			if(checkFormat() == true){
 			
@@ -113,7 +121,8 @@ public class AddBookView extends JDialog  implements ActionListener {
 					Book sach = new Book(Book.genID(),tensp,Product.BOOK,soluong,giamua,giaban,buytime,nxb,tacgia,"");
 					
 					db.saveBook(sach);
-					
+					store.setTotalMoney(store.getTotalMoney()-giamua*soluong);
+					mainFrame.getTopInfoPanel().getLbTotalMoney().setText(format.format(store.getTotalMoney()).toString());
 					dispose();
 					
 					List<Book> list = db.getAllBooks();

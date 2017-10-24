@@ -5,9 +5,10 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
+import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -18,9 +19,10 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import group1.khai.db.DBConnector;
-import group1.khai.models.Book;
+import group1.khai.main.view.MainFrame;
 import group1.khai.models.MovieDisc;
 import group1.khai.models.Product;
+import group1.khai.models.Store;
 
 
 
@@ -33,11 +35,13 @@ public class AddMoviesView extends JDialog  implements ActionListener{
 	private JButton btnThem, btnHuy;
 	private DBConnector db;
 	private TableMoviesPanel tableMoviesPanel;
-	
-	public AddMoviesView(DBConnector db, TableMoviesPanel tableMoviesPanel) {
+	private Store store;
+	private MainFrame mainFrame;
+	public AddMoviesView(DBConnector db,MainFrame main, TableMoviesPanel tableMoviesPanel,Store store) {
 		this.db = db;
 		this.tableMoviesPanel=tableMoviesPanel;
-		
+		this.store=store;
+		this.mainFrame=main;
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setSize(400, 300);
 		setLocationRelativeTo(null);
@@ -101,7 +105,7 @@ public class AddMoviesView extends JDialog  implements ActionListener{
 			
 			if(checkFormat() == true){
 			
-				
+				DecimalFormat format = (DecimalFormat) DecimalFormat.getCurrencyInstance(new Locale("vi","VN"));
 				try {
 					String tensp 	= tfTenSP.getText();
 					int soluong 	= Integer.parseInt(tfSoLuong.getText());
@@ -116,7 +120,8 @@ public class AddMoviesView extends JDialog  implements ActionListener{
 					MovieDisc sach = new MovieDisc(MovieDisc.genID(),tensp,Product.MOVIE_DISC,soluong,giamua,giaban,buytime,daodien,dienvien,"");
 					
 					db.saveMovieDisc(sach);
-					
+					store.setTotalMoney(store.getTotalMoney()-giamua*soluong);
+					mainFrame.getTopInfoPanel().getLbTotalMoney().setText(format.format(store.getTotalMoney()).toString());
 					dispose();
 					
 					List<MovieDisc> list = db.getAllMovieDiscs();

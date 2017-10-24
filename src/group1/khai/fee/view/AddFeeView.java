@@ -5,9 +5,11 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Timestamp;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -18,6 +20,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import group1.khai.db.DBConnector;
+import group1.khai.main.view.MainFrame;
 import group1.khai.models.Fee;
 import group1.khai.models.Store;
 
@@ -34,10 +37,12 @@ public class AddFeeView extends JDialog  implements ActionListener {
 	private DBConnector db;
 	private TableFeePanel tablefeePanel;
 	private Store store;
-	public AddFeeView(DBConnector db, TableFeePanel tableFeePanel, Store store) {
+	private MainFrame mainFrame;
+	public AddFeeView(DBConnector db, MainFrame main,TableFeePanel tableFeePanel, Store store) {
 		this.db = db;
 		this.tablefeePanel=tableFeePanel;
 		this.store=store;
+		this.mainFrame=main;
 		setResizable(false);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setSize(400, 300);
@@ -86,11 +91,11 @@ public class AddFeeView extends JDialog  implements ActionListener {
 			dispose();
 		}
 		if (e.getSource() == btnThem) {
-			SimpleDateFormat format = new SimpleDateFormat("YYYY/MM/DD/hh/mm/ss");
+
 			
 			if(checkFormat() == true){
 			
-				
+				DecimalFormat format = (DecimalFormat) DecimalFormat.getCurrencyInstance(new Locale("vi","VN"));
 				try {
 					String tenChiphi 	= tfTenChiPhi.getText();
 					int cycle 	= Integer.parseInt(tfChuKy.getText());
@@ -107,6 +112,7 @@ public class AddFeeView extends JDialog  implements ActionListener {
 					tablefeePanel.updateTable(list);
 					store.setCostList(list);
 					store.setTotalMoney(store.getTotalMoney()-fee.getFeeValue());
+					mainFrame.getTopInfoPanel().getLbTotalMoney().setText(format.format(store.getTotalMoney()).toString());
 					JOptionPane.showMessageDialog(null, "Thêm sách thành công");
 					
 					 

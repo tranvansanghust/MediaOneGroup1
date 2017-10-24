@@ -24,6 +24,7 @@ import group1.khai.models.Employee;
 import group1.khai.models.MovieDisc;
 import group1.khai.models.MusicDisc;
 import group1.khai.models.Paid;
+import group1.khai.models.Store;
 import group1.khai.moviedisc.view.FuncMoviesPanel;
 import group1.khai.musicdisc.view.FuncMusicPanel;
 
@@ -69,7 +70,10 @@ public class MainFrame extends JFrame{
 	private JPanel funcPanel;
 	private DBConnector  db;
 	private Employee onlineEmp;
-	public MainFrame(Employee emp,DBConnector db) {
+	
+	private Store store;
+	public MainFrame(Employee emp,DBConnector db,Store store) {
+		this.store=store;
 		this.db=db;
 		this.setOnlineEmp(emp);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -79,7 +83,7 @@ public class MainFrame extends JFrame{
 		setLocationRelativeTo(null);
 		
 		/* 			NORTH MAINFRAME			*/
-		topInfoPanel 	= new TopInfoPanel(emp.getFullName(), db);
+		topInfoPanel 	= new TopInfoPanel(emp.getFullName(), db,store);
 		
 		/*			WEST MAINFRAME			*/
 		choicePanel  = new ChoicePanel();
@@ -135,6 +139,7 @@ public class MainFrame extends JFrame{
 					out.writeInt(Customer.idNumber);
 					out.writeInt(Bill.idNumber);
 					out.writeInt(Paid.idNumber);
+					out.writeDouble(store.getTotalMoney());
 					out.flush();
 					out.close();
 				} catch (FileNotFoundException e1) {

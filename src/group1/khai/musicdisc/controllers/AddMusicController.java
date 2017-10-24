@@ -7,6 +7,7 @@ import javax.swing.JButton;
 
 import group1.khai.db.DBConnector;
 import group1.khai.main.view.MainFrame;
+import group1.khai.models.Store;
 import group1.khai.musicdisc.view.AddMusicView;
 import group1.khai.musicdisc.view.TableMusicPanel;
 
@@ -14,7 +15,7 @@ public class AddMusicController {
 	private JButton btnThem;
 	private TableMusicPanel tableMusicPanel;
 	
-	public AddMusicController(MainFrame mainFrame,DBConnector db) {
+	public AddMusicController(MainFrame mainFrame,DBConnector db,Store store) {
 		btnThem = mainFrame.getFuncMusicPanel().getBtnThem();
 		tableMusicPanel = mainFrame.getTabbedProduct().getTableMusicPanel();
 		
@@ -23,7 +24,7 @@ public class AddMusicController {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 			
-				new AddMusicView(db, tableMusicPanel);
+				new AddMusicView(db,mainFrame, tableMusicPanel,store);
 				
 			}
 		});

@@ -33,16 +33,17 @@ import group1.khai.musicdisc.controllers.EditMusicController;
 public class App {
 	public static void main(String[] args) {
 		
-		initIO();
+		
 		DBConnector db = new DBConnector();
 		Store media = new Store("MediaOne", 100000000, db);
+		initIO(media);
 		MainFrame a = new MainFrame(new Employee("20151998","Nguyễn Bá Khải","01699417566",1000,"khailinh1997")
-				, db);
+				, db,media);
 		 /*			CHANGE MAINPANEL     		*/
 		ChangeTableController changCon= new ChangeTableController(a,db);
-		AddBookController addBookCon = new AddBookController(a, db);
-		AddMoviesController addMoviCon = new AddMoviesController(a, db);
-		AddMusicController addMusCon = new AddMusicController(a, db);
+		AddBookController addBookCon = new AddBookController(a, db, media);
+		AddMoviesController addMoviCon = new AddMoviesController(a, db,media);
+		AddMusicController addMusCon = new AddMusicController(a, db,media);
 		AddFeeController addFeeCon = new AddFeeController(a, db,media);
 		DeleteBookController deleBookCon = new DeleteBookController(a, db);
 		DeleteMoviesController deleMCon = new DeleteMoviesController(a, db);
@@ -55,7 +56,7 @@ public class App {
 		
 		PaidFeeController paidCon = new PaidFeeController(a, db,media);
 	}
-	public static void initIO() {
+	public static void initIO(Store store) {
 		try {
 			DataInputStream in = new DataInputStream(new FileInputStream("data.dat"));
 			Book.idNumber=in.readInt();
@@ -65,6 +66,7 @@ public class App {
 			Customer.idNumber=in.readInt();
 			Bill.idNumber=in.readInt();
 			Paid.idNumber=in.readInt();
+			store.setTotalMoney(in.readDouble());
 			in.close();
 		} catch (FileNotFoundException e) {
 			

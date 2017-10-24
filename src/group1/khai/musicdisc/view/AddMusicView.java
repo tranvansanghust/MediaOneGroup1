@@ -5,9 +5,11 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Timestamp;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -18,8 +20,10 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import group1.khai.db.DBConnector;
+import group1.khai.main.view.MainFrame;
 import group1.khai.models.MusicDisc;
 import group1.khai.models.Product;
+import group1.khai.models.Store;
 
 
 public class AddMusicView extends JDialog  implements ActionListener{
@@ -31,11 +35,13 @@ public class AddMusicView extends JDialog  implements ActionListener{
 	private JButton btnThem, btnHuy;
 	private DBConnector db;
 	private TableMusicPanel tableMusicPanel;
-	
-	public AddMusicView(DBConnector db, TableMusicPanel tableMusicPanel) {
+	private Store store;
+	private MainFrame mainFrame;
+	public AddMusicView(DBConnector db,MainFrame main, TableMusicPanel tableMusicPanel,Store store) {
 		this.db = db;
 		this.tableMusicPanel=tableMusicPanel;
-		
+		this.store=store;
+		this.mainFrame=main;
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setSize(400, 300);
 		setLocationRelativeTo(null);
@@ -96,7 +102,7 @@ public class AddMusicView extends JDialog  implements ActionListener{
 			dispose();
 		}
 		if (e.getSource() == btnThem) {
-			SimpleDateFormat format = new SimpleDateFormat("YYYY/MM/DD/hh/mm/ss");
+			DecimalFormat format = (DecimalFormat) DecimalFormat.getCurrencyInstance(new Locale("vi","VN"));
 			
 			if(checkFormat() == true){
 			
@@ -115,7 +121,9 @@ public class AddMusicView extends JDialog  implements ActionListener{
 					MusicDisc sach = new MusicDisc(MusicDisc.genID(),tensp,Product.BOOK,soluong,giamua,giaban,buytime,tacgia,casi,"");
 					
 					db.saveMusicDisc(sach);
+					store.setTotalMoney(store.getTotalMoney()-giamua*soluong);
 					
+					mainFrame.getTopInfoPanel().getLbTotalMoney().setText(format.format(store.getTotalMoney()).toString());
 					dispose();
 					
 					List<MusicDisc> list = db.getAllMusicDiscs();

@@ -26,7 +26,7 @@ public class PaidFeeController {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				List<Paid> list = db.getAllUnPaid();
-				PaidFeeView paidFeeView=new PaidFeeView(db, tableFeePanel,store);
+				PaidFeeView paidFeeView=new PaidFeeView(db,mainFrame, tableFeePanel,store);
 				paidFeeView.updateTable(list);
 			}
 		});
