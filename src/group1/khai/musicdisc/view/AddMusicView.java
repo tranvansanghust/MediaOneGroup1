@@ -29,8 +29,8 @@ import group1.khai.models.Store;
 public class AddMusicView extends JDialog  implements ActionListener{
 
 	
-	private JLabel 	 lbTenSP, lbSoLuong, lbGiaMua, lbGiaBan, lbtacgia, lbCaSi;
-	private JTextField 	tfTenSP, tfSoLuong, tfGiaMua, tfGiaBan, tftacgia, tfCaSi;
+	private JLabel 	 lbTenSP, lbSoLuong, lbGiaMua,lbTheLoai, lbGiaBan, lbtacgia, lbCaSi;
+	private JTextField 	tfTenSP, tfSoLuong, tfGiaMua,tfTheLoai, tfGiaBan, tftacgia, tfCaSi;
 	private JPanel p1, p2,p3;
 	private JButton btnThem, btnHuy;
 	private DBConnector db;
@@ -54,7 +54,7 @@ public class AddMusicView extends JDialog  implements ActionListener{
 		lbGiaBan 	= new JLabel("Giá bán");
 		lbtacgia   	= new JLabel("Tác giả");
 		lbCaSi    = new JLabel("Ca sĩ");
-		
+		lbTheLoai = new JLabel("Thể loại");
 		
 		tfTenSP    	= new JTextField(20);
 		tfSoLuong 	= new JTextField(20);
@@ -62,7 +62,7 @@ public class AddMusicView extends JDialog  implements ActionListener{
 		tfGiaBan    = new JTextField(20);
 		tftacgia   	= new JTextField(20);
 		tfCaSi    = new JTextField(20);
-		
+		tfTheLoai = new JTextField(20);
 		
 
 		btnThem    = new JButton("Thêm");		btnThem.addActionListener(this);
@@ -81,6 +81,7 @@ public class AddMusicView extends JDialog  implements ActionListener{
 		p1.add(lbTenSP);		p2.add(tfTenSP);
 		p1.add(lbtacgia);			p2.add(tftacgia);
 		p1.add(lbCaSi);		p2.add(tfCaSi);
+		p1.add(lbTheLoai);		p2.add(tfTheLoai);
 		p1.add(lbSoLuong);		p2.add(tfSoLuong);	
 		p1.add(lbGiaMua);		p2.add(tfGiaMua);	 
 		p1.add(lbGiaBan);		p2.add(tfGiaBan);	
@@ -116,9 +117,9 @@ public class AddMusicView extends JDialog  implements ActionListener{
 					Timestamp buytime = new Timestamp(time.getYear(), time.getMonth(), time.getDate(), time.getHours(), time.getMinutes(), time.getSeconds(), 0);
 					String tacgia 		= tftacgia.getText();
 					String casi = tfCaSi.getText();
+					String theloai =tfTheLoai.getText();
 					
-					
-					MusicDisc sach = new MusicDisc(MusicDisc.genID(),tensp,Product.BOOK,soluong,giamua,giaban,buytime,tacgia,casi,"");
+					MusicDisc sach = new MusicDisc(MusicDisc.genID(),tensp,Product.BOOK,soluong,giamua,giaban,buytime,tacgia,casi,theloai);
 					
 					db.saveMusicDisc(sach);
 					store.setTotalMoney(store.getTotalMoney()-giamua*soluong);
@@ -150,6 +151,7 @@ public class AddMusicView extends JDialog  implements ActionListener{
 				tfCaSi.getText().equals(null) || tfCaSi.getText().equals("") ||
 				tftacgia.getText().equals(null) || tftacgia.getText().equals("") ||
 				tfGiaMua.getText().equals(null) || tfGiaMua.getText().equals("") ||
+				tfTheLoai.getText().equals(null) || tfTheLoai.getText().equals("") ||
 				tfGiaBan.getText().equals(null) || tfGiaBan.getText().equals("") )
 		{
 			JOptionPane.showMessageDialog(null, "Các trường dữ liệu không được để trống","Cảnh báo",JOptionPane.WARNING_MESSAGE);

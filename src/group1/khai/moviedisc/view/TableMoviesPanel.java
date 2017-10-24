@@ -20,7 +20,7 @@ public class TableMoviesPanel extends JPanel{
 	private JScrollPane scroll;
 	private int currentPage;
 	private JButton btNext,btBack;
-	private String[] columns = { "ID", "Tên đĩa phim", "Đạo diễn", "Diễn viên", "Số lượng tồn kho", "giá mua","giá bán","ngày nhập hàng cuối" };
+	private String[] columns = { "ID", "Tên đĩa phim", "Đạo diễn", "Diễn viên","Thể loại", "Số lượng tồn kho", "giá mua","giá bán","ngày nhập hàng cuối" };
 
 	public TableMoviesPanel() {
 		setLayout(new BorderLayout(10, 0));
@@ -79,10 +79,11 @@ public class TableMoviesPanel extends JPanel{
 			data[i][1] = s.getProductName();
 			data[i][2] = s.getDirectorName();
 			data[i][3] = s.getActorName();
-			data[i][4] = Long.toString(s.getProductQuota());
-			data[i][5] = format.format(s.getBuyPrice()).toString();
-			data[i][6] = format.format(s.getSellPrice()).toString();
-			data[i][7] = s.getBuyTimestamp().toString();
+			data[i][4]=s.getDicsType();
+			data[i][5] = Long.toString(s.getProductQuota());
+			data[i][6] = format.format(s.getBuyPrice()).toString();
+			data[i][7] = format.format(s.getSellPrice()).toString();
+			data[i][8] = s.getBuyTimestamp().toString();
 		}
 		
 		DefaultTableModel tableModel = new DefaultTableModel(data, columns) {

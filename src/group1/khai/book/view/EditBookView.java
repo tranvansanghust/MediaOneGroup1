@@ -24,8 +24,8 @@ public class EditBookView extends JDialog  implements ActionListener{
 	private static final int WARNING_MESSAGE = 0;
 	private static final int INFORMATION_MESSAGE = 0;
 	
-	private JLabel 		 lbTenSP, lbSoLuong, lbGiaMua, lbGiaBan, lbNXB, lbTacGia;
-	private JTextField 	 tfTenSP, tfSoLuong, tfGiaMua, tfGiaBan, tfNXB, tfTacGia;
+	private JLabel 		 lbTenSP, lbSoLuong, lbGiaMua,lbTheLoai, lbGiaBan, lbNXB, lbTacGia;
+	private JTextField 	 tfTenSP, tfSoLuong, tfGiaMua,tfTheLoai, tfGiaBan, tfNXB, tfTacGia;
 	private JPanel p1, p2,p3;
 	private JButton btnSua, btnHuy;
 	private DBConnector db;
@@ -45,6 +45,7 @@ public class EditBookView extends JDialog  implements ActionListener{
 		setTitle("Sửa thông tin sách");
 
 		lbTenSP    	= new JLabel("Tên sách");
+		lbTheLoai    	= new JLabel("Thể loại");
 		lbSoLuong 	= new JLabel("Số lượng");
 		lbGiaMua 	= new JLabel("Giá mua");
 		lbGiaBan 	= new JLabel("Giá bán");
@@ -58,7 +59,7 @@ public class EditBookView extends JDialog  implements ActionListener{
 		tfGiaBan    = new JTextField(20); tfGiaBan.setText(Double.toString(sach.getSellPrice()));
 		tfNXB   	= new JTextField(20); tfNXB.setText(sach.getPublishingCompany());
 		tfTacGia    = new JTextField(20); tfTacGia.setText(sach.getAuthorName());
-		
+		tfTheLoai = new JTextField(20); tfTheLoai.setText(sach.getBookType());
 		
 		btnSua    = new JButton("SỬA");		btnSua.addActionListener(this);
 		btnHuy     = new JButton("HỦY ");	btnHuy.addActionListener(this);
@@ -77,10 +78,11 @@ public class EditBookView extends JDialog  implements ActionListener{
 		p1.add(lbTenSP);		p2.add(tfTenSP);
 		p1.add(lbNXB);			p2.add(tfNXB);
 		p1.add(lbTacGia);		p2.add(tfTacGia);
+		p1.add(lbTheLoai);		p2.add(tfTheLoai);
 		p1.add(lbSoLuong);		p2.add(tfSoLuong);	
 		p1.add(lbGiaMua);		p2.add(tfGiaMua);	 
 		p1.add(lbGiaBan);		p2.add(tfGiaBan);	
-
+		
 		
 		
 		p3.add(btnSua);		p3.add(btnHuy);
@@ -106,6 +108,7 @@ public class EditBookView extends JDialog  implements ActionListener{
 					tfTacGia.getText().equals(null) || tfTacGia.getText().equals("") ||
 					tfNXB.getText().equals(null) || tfNXB.getText().equals("") ||
 					tfGiaMua.getText().equals(null) || tfGiaMua.getText().equals("") ||
+					tfTheLoai.getText().equals(null) || tfTheLoai.getText().equals("") ||
 					tfGiaBan.getText().equals(null) || tfGiaBan.getText().equals("") )
 			{
 				JOptionPane.showMessageDialog(null, "Các trường dữ liệu không được để trống","Cảnh báo",JOptionPane.WARNING_MESSAGE);
@@ -114,6 +117,7 @@ public class EditBookView extends JDialog  implements ActionListener{
 					&&sach.getBuyPrice()==Double.parseDouble(tfGiaMua.getText())
 					&&sach.getSellPrice()==Double.parseDouble(tfGiaBan.getText())
 					&&sach.getPublishingCompany().equals(tfNXB.getText())
+					&&sach.getBookType().equals(tfTheLoai.getText())
 					&&sach.getAuthorName().equals(tfTacGia.getText())) {
 				JOptionPane.showMessageDialog(null, "Chưa thay đổi");
 			}
@@ -124,6 +128,7 @@ public class EditBookView extends JDialog  implements ActionListener{
 				sach.setSellPrice(Double.parseDouble(tfGiaBan.getText()));
 				sach.setPublishingCompany(tfNXB.getText());
 				sach.setAuthorName(tfTacGia.getText());
+				sach.setBookType(tfTheLoai.getText());
 				db.updateBook(sach);
 				this.dispose();
 				List<Book> list = db.getAllBooks(tableBookPanel.getCurrentPage());

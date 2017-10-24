@@ -29,8 +29,8 @@ import group1.khai.models.Store;
 @SuppressWarnings("serial")
 public class AddMoviesView extends JDialog  implements ActionListener{
 	
-	private JLabel 	 lbTenSP, lbSoLuong, lbGiaMua, lbGiaBan, lbDaoDien, lbDienVien;
-	private JTextField 	 tfTenSP, tfSoLuong, tfGiaMua, tfGiaBan , tfDaoDien, tfDienVien;
+	private JLabel 	 lbTenSP, lbSoLuong,lbTheLoai, lbGiaMua, lbGiaBan, lbDaoDien, lbDienVien;
+	private JTextField 	 tfTenSP, tfSoLuong, tfTheLoai,tfGiaMua, tfGiaBan , tfDaoDien, tfDienVien;
 	private JPanel p1, p2,p3;
 	private JButton btnThem, btnHuy;
 	private DBConnector db;
@@ -53,7 +53,7 @@ public class AddMoviesView extends JDialog  implements ActionListener{
 		lbGiaBan 	= new JLabel("Giá bán");
 		lbDaoDien   	= new JLabel("Đạo diễn");
 		lbDienVien    = new JLabel("Diễn viên");
-		
+		lbTheLoai = new JLabel("Thể loại");
 		
 		tfTenSP    	= new JTextField(20);
 		tfSoLuong 	= new JTextField(20);
@@ -61,7 +61,7 @@ public class AddMoviesView extends JDialog  implements ActionListener{
 		tfGiaBan    = new JTextField(20);
 		tfDaoDien   	= new JTextField(20);
 		tfDienVien    = new JTextField(20);
-		
+		tfTheLoai = new JTextField(20);
 		
 	
 		btnThem    = new JButton("Thêm");		btnThem.addActionListener(this);
@@ -80,6 +80,7 @@ public class AddMoviesView extends JDialog  implements ActionListener{
 		p1.add(lbTenSP);		p2.add(tfTenSP);
 		p1.add(lbDaoDien);			p2.add(tfDaoDien);
 		p1.add(lbDienVien);		p2.add(tfDienVien);
+		p1.add(lbTheLoai);p2.add(tfTheLoai);
 		p1.add(lbSoLuong);		p2.add(tfSoLuong);	
 		p1.add(lbGiaMua);		p2.add(tfGiaMua);	 
 		p1.add(lbGiaBan);		p2.add(tfGiaBan);	
@@ -115,9 +116,9 @@ public class AddMoviesView extends JDialog  implements ActionListener{
 					Timestamp buytime = new Timestamp(time.getYear(), time.getMonth(), time.getDate(), time.getHours(), time.getMinutes(), time.getSeconds(), 0);
 					String daodien 		= tfDaoDien.getText();
 					String dienvien = tfDienVien.getText();
+					String theloai = tfTheLoai.getText();
 					
-					
-					MovieDisc sach = new MovieDisc(MovieDisc.genID(),tensp,Product.MOVIE_DISC,soluong,giamua,giaban,buytime,daodien,dienvien,"");
+					MovieDisc sach = new MovieDisc(MovieDisc.genID(),tensp,Product.MOVIE_DISC,soluong,giamua,giaban,buytime,daodien,dienvien,theloai);
 					
 					db.saveMovieDisc(sach);
 					store.setTotalMoney(store.getTotalMoney()-giamua*soluong);
@@ -148,6 +149,7 @@ public class AddMoviesView extends JDialog  implements ActionListener{
 				tfDaoDien.getText().equals(null) || tfDaoDien.getText().equals("") ||
 				tfDienVien.getText().equals(null) || tfDienVien.getText().equals("") ||
 				tfGiaMua.getText().equals(null) || tfGiaMua.getText().equals("") ||
+				tfTheLoai.getText().equals(null) || tfTheLoai.getText().equals("") ||
 				tfGiaBan.getText().equals(null) || tfGiaBan.getText().equals("") )
 		{
 			JOptionPane.showMessageDialog(null, "Các trường dữ liệu không được để trống","Cảnh báo",JOptionPane.WARNING_MESSAGE);

@@ -31,8 +31,8 @@ import group1.khai.models.Store;
 public class AddBookView extends JDialog  implements ActionListener {
 
 	
-	private JLabel 	 lbTenSP, lbSoLuong, lbGiaMua, lbGiaBan, lbNXB, lbTacGia;
-	private JTextField 	 tfTenSP, tfSoLuong, tfGiaMua, tfGiaBan, tfNXB, tfTacGia;
+	private JLabel 	 lbTenSP, lbSoLuong, lbGiaMua,lbTheLoai, lbGiaBan, lbNXB, lbTacGia;
+	private JTextField 	 tfTenSP, tfSoLuong, tfGiaMua,tfTheLoai, tfGiaBan, tfNXB, tfTacGia;
 	private JPanel p1, p2,p3;
 	private JButton btnThem, btnHuy;
 	private DBConnector db;
@@ -58,7 +58,7 @@ public class AddBookView extends JDialog  implements ActionListener {
 		lbGiaBan 	= new JLabel("Giá bán");
 		lbNXB   	= new JLabel("Nhà XB");
 		lbTacGia    = new JLabel("Tác giả");
-		
+		lbTheLoai = new JLabel("Thể loại");
 		
 		tfTenSP    	= new JTextField(20);
 		tfSoLuong 	= new JTextField(20);
@@ -66,7 +66,7 @@ public class AddBookView extends JDialog  implements ActionListener {
 		tfGiaBan    = new JTextField(20);
 		tfNXB   	= new JTextField(20);
 		tfTacGia    = new JTextField(20);
-		
+		tfTheLoai = new JTextField(20);
 		btnThem    = new JButton("Thêm");		btnThem.addActionListener(this);
 		btnHuy     = new JButton("Hủy ");	btnHuy.addActionListener(this);
 		
@@ -81,6 +81,7 @@ public class AddBookView extends JDialog  implements ActionListener {
 		p1.add(lbTenSP);		p2.add(tfTenSP);
 		p1.add(lbNXB);			p2.add(tfNXB);
 		p1.add(lbTacGia);		p2.add(tfTacGia);
+		p1.add(lbTheLoai); 		p2.add(tfTheLoai);
 		p1.add(lbSoLuong);		p2.add(tfSoLuong);	
 		p1.add(lbGiaMua);		p2.add(tfGiaMua);	 
 		p1.add(lbGiaBan);		p2.add(tfGiaBan);	
@@ -116,9 +117,9 @@ public class AddBookView extends JDialog  implements ActionListener {
 					Timestamp buytime = new Timestamp(time.getYear(), time.getMonth(), time.getDate(), time.getHours(), time.getMinutes(), time.getSeconds(), 0);
 					String nxb 		= tfNXB.getText();
 					String tacgia = tfTacGia.getText();
+					String theloai = tfTheLoai.getText();
 					
-					
-					Book sach = new Book(Book.genID(),tensp,Product.BOOK,soluong,giamua,giaban,buytime,nxb,tacgia,"");
+					Book sach = new Book(Book.genID(),tensp,Product.BOOK,soluong,giamua,giaban,buytime,nxb,tacgia,theloai);
 					
 					db.saveBook(sach);
 					store.setTotalMoney(store.getTotalMoney()-giamua*soluong);
@@ -148,6 +149,7 @@ public class AddBookView extends JDialog  implements ActionListener {
 				tfSoLuong.getText().equals(null) || tfSoLuong.getText().equals("") ||
 				tfNXB.getText().equals(null) || tfNXB.getText().equals("") ||
 				tfTacGia.getText().equals(null) || tfTacGia.getText().equals("") ||
+				tfTheLoai.getText().equals(null) || tfTheLoai.getText().equals("") ||
 				tfGiaMua.getText().equals(null) || tfGiaMua.getText().equals("") ||
 				tfGiaBan.getText().equals(null) || tfGiaBan.getText().equals("") )
 		{

@@ -22,8 +22,8 @@ import group1.khai.models.MovieDisc;
 public class EditMoviesView extends JDialog implements ActionListener {
 
 	
-	private JLabel 		 lbTenSP, lbSoLuong, lbGiaMua, lbGiaBan, lbDaoDien, lbDienVien;
-	private JTextField 	 tfTenSP, tfSoLuong, tfGiaMua, tfGiaBan, tfDaoDien, tfDienVien;
+	private JLabel 		 lbTenSP, lbSoLuong, lbGiaMua,lbTheLoai, lbGiaBan, lbDaoDien, lbDienVien;
+	private JTextField 	 tfTenSP, tfSoLuong, tfGiaMua, tfTheLoai,tfGiaBan, tfDaoDien, tfDienVien;
 	private JPanel p1, p2,p3;
 	private JButton btnSua, btnHuy;
 	private DBConnector db;
@@ -45,7 +45,7 @@ public class EditMoviesView extends JDialog implements ActionListener {
 		lbSoLuong 	= new JLabel("Số lượng");
 		lbGiaMua 	= new JLabel("Giá mua");
 		lbGiaBan 	= new JLabel("Giá bán");
-
+		lbTheLoai = new JLabel("Thể loại");
 		lbDaoDien   	= new JLabel("Đạo diễn");
 		lbDienVien    = new JLabel("Diễn viên");
 		
@@ -57,7 +57,7 @@ public class EditMoviesView extends JDialog implements ActionListener {
 		tfGiaBan    = new JTextField(20); tfGiaBan.setText(Double.toString(diaphim.getSellPrice()));
 		tfDaoDien   	= new JTextField(20); tfDaoDien.setText(diaphim.getDirectorName());
 		tfDienVien    = new JTextField(20); tfDienVien.setText(diaphim.getActorName());
-		
+		tfTheLoai = new JTextField(20); tfTheLoai.setText(diaphim.getDicsType());
 		
 		btnSua    = new JButton("Sửa");		btnSua.addActionListener(this);
 		btnHuy     = new JButton("Hủy ");		btnHuy.addActionListener(this);
@@ -76,6 +76,7 @@ public class EditMoviesView extends JDialog implements ActionListener {
 		p1.add(lbTenSP);		p2.add(tfTenSP);
 		p1.add(lbDaoDien);			p2.add(tfDaoDien);
 		p1.add(lbDienVien);		p2.add(tfDienVien);
+		p1.add(lbTheLoai);		p2.add(tfTheLoai);
 		p1.add(lbSoLuong);		p2.add(tfSoLuong);	
 		p1.add(lbGiaMua);		p2.add(tfGiaMua);	 
 		p1.add(lbGiaBan);		p2.add(tfGiaBan);	
@@ -104,6 +105,7 @@ public class EditMoviesView extends JDialog implements ActionListener {
 					tfDaoDien.getText().equals(null) || tfDaoDien.getText().equals("") ||
 					tfDienVien.getText().equals(null) || tfDaoDien.getText().equals("") ||
 					tfGiaMua.getText().equals(null) || tfGiaMua.getText().equals("") ||
+					tfTheLoai.getText().equals(null) || tfTheLoai.getText().equals("") ||
 					tfGiaBan.getText().equals(null) || tfGiaBan.getText().equals("") )
 			{
 				JOptionPane.showMessageDialog(null, "Các trường dữ liệu không được để trống","Cảnh báo",JOptionPane.WARNING_MESSAGE);
@@ -112,6 +114,7 @@ public class EditMoviesView extends JDialog implements ActionListener {
 					&&diaphim.getBuyPrice()==Double.parseDouble(tfGiaMua.getText())
 					&&diaphim.getSellPrice()==Double.parseDouble(tfGiaBan.getText())
 					&&diaphim.getActorName().equals(tfDienVien.getText())
+					&&diaphim.getDicsType().equals(tfTheLoai.getText())
 					&&diaphim.getDirectorName().equals(tfDaoDien.getText())) {
 				JOptionPane.showMessageDialog(null, "Chưa thay đổi");
 			}
@@ -122,6 +125,7 @@ public class EditMoviesView extends JDialog implements ActionListener {
 				diaphim.setSellPrice(Double.parseDouble(tfGiaBan.getText()));
 				diaphim.setActorName(tfDaoDien.getText());
 				diaphim.setDirectorName(tfDaoDien.getText());
+				diaphim.setDicsType(tfTheLoai.getText());
 				db.updateMovieDisc(diaphim);
 				this.dispose();
 				List<MovieDisc> list = db.getAllMovieDiscs(tableMoviesPanel.getCurrentPage());

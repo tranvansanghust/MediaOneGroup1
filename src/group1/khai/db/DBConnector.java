@@ -476,7 +476,7 @@ public class DBConnector {
 					+ bk.getID() + "';";
 			stm.executeUpdate(query);
 			query = "update  Book " + "set publishingCompany='" + bk.getPublishingCompany() + "',authorName='"
-					+ bk.getAuthorName() + "'" + " where id='" + bk.getID() + "';";
+					+ bk.getAuthorName() + "',bookType='"+bk.getBookType() + "' where id='" + bk.getID() + "';";
 			stm.executeUpdate(query);
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -491,7 +491,7 @@ public class DBConnector {
 					+ bk.getID() + "';";
 			stm.executeUpdate(query);
 			query = "update  MovieDisc " + "set DirectorName='" + bk.getDirectorName() + "',actorName='"
-					+ bk.getActorName() + "'" + " where id='" + bk.getID() + "';";
+					+ bk.getActorName() + "',dicsType='"+bk.getDicsType() + "' where id='" + bk.getID() + "';";
 			stm.executeUpdate(query);
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -506,7 +506,7 @@ public class DBConnector {
 					+ bk.getID() + "';";
 			stm.executeUpdate(query);
 			query = "update  MusicDisc " + "set authorName='" + bk.getAuthorName() + "',singerName='"
-					+ bk.getSingerName() + "'" + " where id='" + bk.getID() + "';";
+					+ bk.getSingerName() + "',dicsType='" +bk.getDicsType()+ "' where id='" + bk.getID() + "';";
 			stm.executeUpdate(query);
 		} catch (SQLException e) {
 			e.printStackTrace();

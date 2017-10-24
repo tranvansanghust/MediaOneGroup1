@@ -22,8 +22,8 @@ import group1.khai.models.MusicDisc;
 public class EditMusicView extends JDialog  implements ActionListener{
 
 	
-	private JLabel 		 lbTenSP, lbSoLuong, lbGiaMua, lbGiaBan, lbTacGia, lbCaSi;
-	private JTextField 	 tfTenSP, tfSoLuong, tfGiaMua, tfGiaBan, tfTacGia, tfCaSi;
+	private JLabel 		 lbTenSP, lbSoLuong, lbGiaMua,lbTheLoai, lbGiaBan, lbTacGia, lbCaSi;
+	private JTextField 	 tfTenSP, tfSoLuong, tfGiaMua,tfTheLoai, tfGiaBan, tfTacGia, tfCaSi;
 	private JPanel p1, p2,p3;
 	private JButton btnSua, btnHuy;
 	private DBConnector db;
@@ -44,7 +44,7 @@ public class EditMusicView extends JDialog  implements ActionListener{
 		lbSoLuong 	= new JLabel("Số lượng");
 		lbGiaMua 	= new JLabel("Giá mua");
 		lbGiaBan 	= new JLabel("Giá bán");
-
+		lbTheLoai = new JLabel("Thể Loại");
 		lbTacGia   	= new JLabel("Tác giả");
 		lbCaSi    = new JLabel("Ca sĩ");
 		
@@ -56,7 +56,7 @@ public class EditMusicView extends JDialog  implements ActionListener{
 		tfGiaBan    = new JTextField(20); tfGiaBan.setText(Double.toString(dianhac.getSellPrice()));
 		tfCaSi   	= new JTextField(20); tfCaSi.setText(dianhac.getSingerName());
 		tfTacGia    = new JTextField(20); tfTacGia.setText(dianhac.getAuthorName());
-		
+		tfTheLoai = new JTextField(20); tfTheLoai.setText(dianhac.getDicsType());
 		
 		btnSua    = new JButton("Thêm");		btnSua.addActionListener(this);
 		btnHuy     = new JButton("Hủy ");		btnHuy.addActionListener(this);
@@ -76,6 +76,7 @@ public class EditMusicView extends JDialog  implements ActionListener{
 		p1.add(lbTenSP);		p2.add(tfTenSP);
 		p1.add(lbTacGia);			p2.add(tfTacGia);
 		p1.add(lbCaSi);		p2.add(tfCaSi);
+		p1.add(lbTheLoai);		p2.add(tfTheLoai);
 		p1.add(lbSoLuong);		p2.add(tfSoLuong);	
 		p1.add(lbGiaMua);		p2.add(tfGiaMua);	 
 		p1.add(lbGiaBan);		p2.add(tfGiaBan);	
@@ -102,6 +103,7 @@ public class EditMusicView extends JDialog  implements ActionListener{
 					tfSoLuong.getText().equals(null) || tfSoLuong.getText().equals("") ||
 					tfTacGia.getText().equals(null) || tfTacGia.getText().equals("") ||
 					tfCaSi.getText().equals(null) || tfCaSi.getText().equals("") ||
+					tfTheLoai.getText().equals(null) || tfTheLoai.getText().equals("") ||
 					tfGiaMua.getText().equals(null) || tfGiaMua.getText().equals("") ||
 					tfGiaBan.getText().equals(null) || tfGiaBan.getText().equals("") )
 			{
@@ -111,6 +113,7 @@ public class EditMusicView extends JDialog  implements ActionListener{
 					&&dianhac.getBuyPrice()==Double.parseDouble(tfGiaMua.getText())
 					&&dianhac.getSellPrice()==Double.parseDouble(tfGiaBan.getText())
 					&&dianhac.getAuthorName().equals(tfTacGia.getText())
+					&&dianhac.getDicsType().equals(tfTheLoai.getText())
 					&&dianhac.getSingerName().equals(tfCaSi.getText())) {
 				JOptionPane.showMessageDialog(null, "Chưa thay đổi");
 			}
@@ -121,6 +124,7 @@ public class EditMusicView extends JDialog  implements ActionListener{
 				dianhac.setSellPrice(Double.parseDouble(tfGiaBan.getText()));
 				dianhac.setAuthorName(tfTacGia.getText());
 				dianhac.setSingerName(tfCaSi.getText());
+				dianhac.setDicsType(tfTheLoai.getText());
 				db.updateMusicDisc(dianhac);
 				this.dispose();
 				List<MusicDisc> list = db.getAllMusicDiscs(tableMusicPanel.getCurrentPage());
