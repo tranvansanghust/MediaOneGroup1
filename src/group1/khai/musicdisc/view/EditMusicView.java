@@ -123,7 +123,7 @@ public class EditMusicView extends JDialog  implements ActionListener{
 				dianhac.setSingerName(tfCaSi.getText());
 				db.updateMusicDisc(dianhac);
 				this.dispose();
-				List<MusicDisc> list = db.getAllMusicDiscs();
+				List<MusicDisc> list = db.getAllMusicDiscs(0);
 				tableMusicPanel.updateTable(list);
 			}
 		}

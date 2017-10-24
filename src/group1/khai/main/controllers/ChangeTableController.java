@@ -88,7 +88,7 @@ public class ChangeTableController {
 				funcPanel.revalidate();
 				funcPanel.repaint();
 				
-				List<Customer > list = db.getAllCustomers();
+				List<Customer > list = db.getAllCustomers(0);
 				tableCusPanel.updateTable(list);
 			}
 		});
@@ -123,7 +123,7 @@ public class ChangeTableController {
 
 				}
 
-				List<Book> list = db.getAllBooks();
+				List<Book> list = db.getAllBooks(0);
 				tableBookPanel.updateTable(list);
 
 			}
@@ -162,7 +162,7 @@ public class ChangeTableController {
 					funcPanel.revalidate();
 					funcPanel.repaint();
 					
-					List<MovieDisc > list1 = db.getAllMovieDiscs();
+					List<MovieDisc > list1 = db.getAllMovieDiscs(0);
 					tableMoviesPanel.updateTable(list1);
 	            }
 	            else if(tabbedProduct.getSelectedIndex() == 2) {
@@ -171,7 +171,7 @@ public class ChangeTableController {
 					funcPanel.revalidate();
 					funcPanel.repaint();
 					
-					List<MusicDisc > list2 = db.getAllMusicDiscs();
+					List<MusicDisc > list2 = db.getAllMusicDiscs(0);
 					tableMusicPanel.updateTable(list2);
 	            }
 	        }

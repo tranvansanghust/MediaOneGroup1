@@ -31,7 +31,7 @@ public class DeleteMoviesController {
 					int a=JOptionPane.showConfirmDialog(tableMoviesPanel, "Bạn muốn xóa đĩa phim mã '"+id+"'?", "Cảnh báo", JOptionPane.YES_NO_OPTION);
 					if(JOptionPane.YES_OPTION==a) {
 						db.deleteMovieDisc(id);
-						List<MovieDisc> list = db.getAllMovieDiscs();
+						List<MovieDisc> list = db.getAllMovieDiscs(0);
 						tableMoviesPanel.updateTable(list);
 						JOptionPane.showMessageDialog(null, "Xóa đĩa phim thành công");
 					}

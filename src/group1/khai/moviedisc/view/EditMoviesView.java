@@ -124,7 +124,7 @@ public class EditMoviesView extends JDialog implements ActionListener {
 				diaphim.setDirectorName(tfDaoDien.getText());
 				db.updateMovieDisc(diaphim);
 				this.dispose();
-				List<MovieDisc> list = db.getAllMovieDiscs();
+				List<MovieDisc> list = db.getAllMovieDiscs(0);
 				tableMoviesPanel.updateTable(list);
 			}
 		}

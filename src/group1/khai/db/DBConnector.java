@@ -130,10 +130,9 @@ public class DBConnector {
 						+ paid.getFeeName() + "'," + paid.isPaid() + ",'" + paid.getRequestTime() + "','"
 						+ paid.getPaidTime() + "');";
 				stm.executeUpdate(query);
-			}
-			else {
+			} else {
 				query = "insert into Paid(ID,feeName,status,requestTime) values ('" + paid.getID() + "','"
-						+ paid.getFeeName() + "'," + paid.isPaid() + ",'" + paid.getRequestTime()  + "');";
+						+ paid.getFeeName() + "'," + paid.isPaid() + ",'" + paid.getRequestTime() + "');";
 				stm.executeUpdate(query);
 			}
 			return true;
@@ -272,10 +271,11 @@ public class DBConnector {
 		return null;
 	}
 
-	public List<Book> getAllBooks() {
+	public List<Book> getAllBooks(int pageindex) {
 		List<Book> result = new LinkedList<Book>();
 		try {
-			String query = "select * from book,product where book.id=product.id";
+			String query = "select * from book,product where book.id=product.id limit " + (pageindex * 50) + ","
+					+ ((pageindex + 1) * 50) + ";";
 			rs = stm.executeQuery(query);
 			while (rs.next()) {
 				String iD = rs.getString("ID");
@@ -297,10 +297,11 @@ public class DBConnector {
 		return result;
 	}
 
-	public List<MusicDisc> getAllMusicDiscs() {
+	public List<MusicDisc> getAllMusicDiscs(int pageindex) {
 		List<MusicDisc> result = new LinkedList<MusicDisc>();
 		try {
-			String query = "select * from musicdisc,product where musicdisc.id=product.id";
+			String query = "select * from musicdisc,product where musicdisc.id=product.id limit " + (pageindex * 50)
+					+ "," + ((pageindex + 1) * 50) + ";";
 			rs = stm.executeQuery(query);
 			while (rs.next()) {
 				String iD = rs.getString("ID");
@@ -322,10 +323,11 @@ public class DBConnector {
 		return result;
 	}
 
-	public List<MovieDisc> getAllMovieDiscs() {
+	public List<MovieDisc> getAllMovieDiscs(int pageindex) {
 		List<MovieDisc> result = new LinkedList<MovieDisc>();
 		try {
-			String query = "select * from MovieDisc,product where MovieDisc.id=product.id";
+			String query = "select * from MovieDisc,product where MovieDisc.id=product.id limit " + (pageindex * 50)
+					+ "," + ((pageindex + 1) * 50) + ";";
 			rs = stm.executeQuery(query);
 			while (rs.next()) {
 				String iD = rs.getString("ID");
@@ -347,10 +349,11 @@ public class DBConnector {
 		return result;
 	}
 
-	public List<Customer> getAllCustomers() {
+	public List<Customer> getAllCustomers(int pageindex) {
 		List<Customer> result = new LinkedList<Customer>();
 		try {
-			String query = "select * from Customer,human where Customer.id=human.id";
+			String query = "select * from Customer,human where Customer.id=human.id limit " + (pageindex * 50) + ","
+					+ ((pageindex + 1) * 50) + ";";
 			rs = stm.executeQuery(query);
 			while (rs.next()) {
 				String iD = rs.getString("ID");
@@ -368,7 +371,7 @@ public class DBConnector {
 	public List<Fee> getAllFees() {
 		List<Fee> result = new LinkedList<Fee>();
 		try {
-			String query = "select * from Fee";
+			String query = "select * from Fee ; ;";
 			rs = stm.executeQuery(query);
 			while (rs.next()) {
 				String feeName = rs.getString("feeName");
@@ -386,7 +389,7 @@ public class DBConnector {
 	public List<Paid> getAllUnPaid() {
 		List<Paid> result = new LinkedList<Paid>();
 		try {
-			String query = "select * from Paid,Fee where paid.feeName=fee.feeName and status=false";
+			String query = "select * from Paid,Fee where paid.feeName=fee.feeName and status=false;";
 			rs = stm.executeQuery(query);
 			while (rs.next()) {
 				String id = rs.getString("ID");
@@ -515,4 +518,25 @@ public class DBConnector {
 			e.printStackTrace();
 		}
 	}
+	public int getMaxID(String table) {
+		try {
+			String query = "select max(id) from "+table+";";
+			rs=stm.executeQuery(query);
+			if(rs.next()) {
+				String id = rs.getString(1);
+				if(id==null) return 0;
+				String i = id.substring(2);
+				int j=0;
+				while(i.charAt(j)=='0') {
+					i=i.substring(1);
+				}
+				return Integer.parseInt(i);
+			}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
 }

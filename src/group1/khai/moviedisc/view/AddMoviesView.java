@@ -124,7 +124,7 @@ public class AddMoviesView extends JDialog  implements ActionListener{
 					mainFrame.getTopInfoPanel().getLbTotalMoney().setText(format.format(store.getTotalMoney()).toString());
 					dispose();
 					
-					List<MovieDisc> list = db.getAllMovieDiscs();
+					List<MovieDisc> list = db.getAllMovieDiscs(0);
 					tableMoviesPanel.updateTable(list);
 					JOptionPane.showMessageDialog(null, "Thêm đĩa thành công");
 					

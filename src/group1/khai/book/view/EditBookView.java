@@ -126,7 +126,7 @@ public class EditBookView extends JDialog  implements ActionListener{
 				sach.setAuthorName(tfTacGia.getText());
 				db.updateBook(sach);
 				this.dispose();
-				List<Book> list = db.getAllBooks();
+				List<Book> list = db.getAllBooks(0);
 				tableBookPanel.updateTable(list);
 			}
 		}

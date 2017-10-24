@@ -132,13 +132,6 @@ public class MainFrame extends JFrame{
 			public void windowClosing(WindowEvent e) {
 				try {
 					DataOutputStream out = new DataOutputStream(new FileOutputStream("data.dat"));
-					out.writeInt(Book.idNumber);
-					out.writeInt(MusicDisc.idNumber);
-					out.writeInt(MovieDisc.idNumber);
-					out.writeInt(Employee.idNumber);
-					out.writeInt(Customer.idNumber);
-					out.writeInt(Bill.idNumber);
-					out.writeInt(Paid.idNumber);
 					out.writeDouble(store.getTotalMoney());
 					out.flush();
 					out.close();

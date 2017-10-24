@@ -36,7 +36,7 @@ public class App {
 		
 		DBConnector db = new DBConnector();
 		Store media = new Store("MediaOne", 100000000, db);
-		initIO(media);
+		initQuery(media,db);
 		MainFrame a = new MainFrame(new Employee("20151998","Nguyễn Bá Khải","01699417566",1000,"khailinh1997")
 				, db,media);
 		 /*			CHANGE MAINPANEL     		*/
@@ -56,16 +56,16 @@ public class App {
 		
 		PaidFeeController paidCon = new PaidFeeController(a, db,media);
 	}
-	public static void initIO(Store store) {
+	public static void initQuery(Store store,DBConnector db) {
 		try {
 			DataInputStream in = new DataInputStream(new FileInputStream("data.dat"));
-			Book.idNumber=in.readInt();
-			MusicDisc.idNumber=in.readInt();
-			MovieDisc.idNumber=in.readInt();
-			Employee.idNumber=in.readInt();
-			Customer.idNumber=in.readInt();
-			Bill.idNumber=in.readInt();
-			Paid.idNumber=in.readInt();
+			Book.idNumber=db.getMaxID("book");
+			MusicDisc.idNumber=db.getMaxID("musicdisc");
+			MovieDisc.idNumber=db.getMaxID("moviedisc");
+			Employee.idNumber=db.getMaxID("employee");
+			Customer.idNumber=db.getMaxID("customer");
+			Bill.idNumber=db.getMaxID("bill");
+			Paid.idNumber=db.getMaxID("paid");
 			store.setTotalMoney(in.readDouble());
 			in.close();
 		} catch (FileNotFoundException e) {
